@@ -1,30 +1,9 @@
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <script src="https://kit.fontawesome.com/587ab224da.js" crossorigin="anonymous"></script>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Connexion Ad'mns</title>
-    <link rel="stylesheet" href="../../assets/style/adminDocument.css" />
-</head>
-
-<body>
-    <nav class="navbar">
-        <a href="#" class="logo"><img src="../../assets/img/pngwing.com.png" alt="" /></a>
-        <div class="nav-links">
-        <ul>
-                    <li><a href="./index.php">Acceuil</a></li>
-                    <li><a href="./adminClasse.php">Classes</a></li>
-                    <li><a href="./adminLate.php">Absence/Retard</a></li>
-                    <li><a href="./adminDoc.php">Document</a></li>
-                </ul>
-        </div>
-        <img src="../../assets/img/menuBurger.png" alt="" class="menu-hamburger" />
-    </nav>
-    <header></header>
-
+<?php
+$title = "Documents";
+$link = "../../assets/style/adminDocument.css";
+session_start();
+include "../includes/header.php";
+?>
     <div id="container-eleves">
         <ul>
             <li>Nom de l'élève :</li>

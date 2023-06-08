@@ -9,7 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion Ad'mns</title>
-    <link rel="stylesheet" href="/assets/style/userDocument.css" />
+    <link rel="stylesheet" href="../assets/style/userDocument.css" />
+    <link rel="stylesheet" href="../assets/style/main.css" />
+
   </head>
   <body>
     <nav class="navbar">
@@ -18,11 +20,11 @@
       /></a>
       <div class="nav-links">
         <ul>
-          <li><a href="../user/userAccueil.html">Absence/Retard</a></li>
-          <li><a href="#">document</a></li>
+          <li><a href="./userAccueil.php">Absence/Retard</a></li>
+          <li><a href="./userDocument.php">document</a></li>
         </ul>
       </div>
-      <img src="./pngwing.com.png" alt="" class="menu-hamburger" />
+      <img src="../assets/img/menuBurger.png" alt="" class="menu-hamburger" />
     </nav>
     <header></header>
 

@@ -1,46 +1,38 @@
 <?php
+$title = "Affichage des classes";
+$link = "../../assets/style/adminClasses.css";
+session_start();
 require_once $_SERVER['DOCUMENT_ROOT'] . "/connexion/connect.php";
+require_once "../includes/header.php";
 require_once "../php/function.php";
-require_once "../includes/suppClasse.php";
+
+// Vérifier si la connexion à la base de données est établie avec succès
+if (!$conn) {
+    echo "Erreur de connexion à la base de données.";
+    exit();
+}
 
 $classes = getClasses($conn);
+
+// Vérifier si la fonction getClasses() a renvoyé un résultat valide
+if ($classes === false) {
+    echo "Erreur lors de la récupération des classes.";
+    exit();
+}
 ?>
-
-<!DOCTYPE html>
-<html lang="fr">
-
-<head>
-    <script src="https://kit.fontawesome.com/587ab224da.js" crossorigin="anonymous"></script>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Classes</title>
-    <link rel="stylesheet" href="../../assets/style/adminClasses.css" />
-    <link rel="stylesheet" href="../../assets/style/popUpButton.css" />
-</head>
-
-<body>
-    <header>
-        <nav class="navbar">
-            <a href="#" class="logo"><img src="../../assets/img/pngwing.com.png" alt="" /></a>
-            <div class="nav-links">
-            <ul>
-                    <li><a href="./index.php">Acceuil</a></li>
-                    <li><a href="./adminClasse.php">Classes</a></li>
-                    <li><a href="./adminLate.php">Absence/Retard</a></li>
-                    <li><a href="./adminDoc.php">Document</a></li>
-                </ul>
-            </div>
-            <img src="../../assets/img/menuBurger.png" alt="" class="menu-hamburger" />
-        </nav>
-    </header>
-
     <div id="container-eleves">
-        <button id="addClasse"><a href="./addClass.php">Ajouter une classe</a></button>
+      <ul>
+        <div>
+            <li>Nom de l'élève :</li>
+            <li>Prénom de l'élève :</li>
+            <li>Classe de l'élève :</li>
+            <li><button><a href="./adminAjoutClasse.php"> <i class="fa-solid fa-user-plus"></i></a></button></li>
+        </div>
+    </ul>
     </div>
 
     <div id="container-main">
-        <table>
+        <table class="tableau">
             <tr>
                 <th>Classe</th>
                 <th>Description</th>
@@ -64,7 +56,7 @@ if (count($classes) > 0) {
 
         echo "<td>" . $studentCount . "</td>";
         echo "<td>";
-        echo "<button class='absence-button autre-button' data-index='$index' data-class-id='" . $class["classId"] . "'>Autre</button>";
+        echo '<a href="./adminModifClasse.php?classId=' . $class["classId"] . '" class="button">Modifier</a>';
         echo "</td>";
         echo "</tr>";
         $index++;
@@ -76,18 +68,8 @@ if (count($classes) > 0) {
         </table>
     </div>
 
-    <div id="popup" class="popup">
-        <h3>Que voulez-vous faire ?</h3>
-        <button id="modifyButton">Modifier</button>
-        <button id="deleteButton">Supprimer</button>
-        <button id="closeButton"></button>
-    </div>
+
     <script src="../../assets/javascript/script.js"></script>
-    <script src="../../assets/javascript/popUpButton.js"></script>
 </body>
 
 </html>
-
-<?php
-$conn = null;
-?>

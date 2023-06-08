@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 26, 2023 at 02:02 PM
+-- Generation Time: Jun 08, 2023 at 09:12 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -59,32 +59,6 @@ CREATE TABLE IF NOT EXISTS `necessite` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `stagiaire`
---
-
-DROP TABLE IF EXISTS `stagiaire`;
-CREATE TABLE IF NOT EXISTS `stagiaire` (
-  `userId` int NOT NULL,
-  `formationId` int NOT NULL,
-  PRIMARY KEY (`userId`),
-  KEY `formationId` (`formationId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbladmin`
---
-
-DROP TABLE IF EXISTS `tbladmin`;
-CREATE TABLE IF NOT EXISTS `tbladmin` (
-  `userId` int NOT NULL,
-  PRIMARY KEY (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `tblclass`
 --
 
@@ -93,19 +67,23 @@ CREATE TABLE IF NOT EXISTS `tblclass` (
   `classId` int NOT NULL AUTO_INCREMENT,
   `className` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `classDesc` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `archived` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`classId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblclass`
 --
 
-INSERT INTO `tblclass` (`classId`, `className`, `classDesc`) VALUES
-(3, 'Dev 2', 'Dev Web et Web Mobile'),
-(4, 'Dev 3', 'Dev Web & Web Mobile'),
-(5, 'Dev 4', 'Dev Web et Web Mobile'),
-(6, 'Dev 5', 'Dev Web et Web Mobile'),
-(8, 'Dev 14', 'Dev Web et Web Mobile');
+INSERT INTO `tblclass` (`classId`, `className`, `classDesc`, `archived`) VALUES
+(3, 'Dev 2', 'Dev Web et Web Mobile', 0),
+(4, 'Dev 3', 'Dev Web & Web Mobile', 0),
+(5, 'Dev 4', 'Dev Web et Web Mobile', 0),
+(6, 'Dev 5', 'Dev Web et Web Mobile', 0),
+(8, 'Dev 23', 'Dev Web et Web Mobile', 0),
+(9, 'test', 'test', 0),
+(10, 'test4', 'test4', 0),
+(11, 'test 5', '43', 0);
 
 -- --------------------------------------------------------
 
@@ -150,6 +128,28 @@ CREATE TABLE IF NOT EXISTS `tblformation` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblrole`
+--
+
+DROP TABLE IF EXISTS `tblrole`;
+CREATE TABLE IF NOT EXISTS `tblrole` (
+  `userId` int NOT NULL,
+  `role_user` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `role` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblrole`
+--
+
+INSERT INTO `tblrole` (`userId`, `role_user`, `role`) VALUES
+(14, '', 'super_admin'),
+(15, '', 'administration');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tbluser`
 --
 
@@ -169,19 +169,24 @@ CREATE TABLE IF NOT EXISTS `tbluser` (
   `userStreet` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `userNumero` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `classId` int DEFAULT NULL,
+  `role` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`userId`),
   KEY `classId` (`classId`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbluser`
 --
 
-INSERT INTO `tbluser` (`userId`, `userMail`, `userPwd`, `userSurname`, `userName`, `userAge`, `userInscription`, `userPhone`, `userImage`, `userCp`, `userCity`, `userStreet`, `userNumero`, `classId`) VALUES
-(5, 'test@test.fr', NULL, 'test', 'test', '22', NULL, '2222222222', NULL, '57300', 'test', 'test', NULL, 3),
-(6, 'toto@toto.fr', NULL, 'toto', 'toto', '43', NULL, '3333333333333', NULL, '434343', 'toto', 'toto', NULL, 6),
-(7, 'test@test.fr', NULL, 'jean', 'paul', '22', NULL, '0777777777', NULL, '57000', 'test', 'test', NULL, 8),
-(8, 'caca@gmail.caca', NULL, 'caca', 'caca', '12', NULL, '1234567890', NULL, '040404', 'cacacity', 'caca', NULL, 8);
+INSERT INTO `tbluser` (`userId`, `userMail`, `userPwd`, `userSurname`, `userName`, `userAge`, `userInscription`, `userPhone`, `userImage`, `userCp`, `userCity`, `userStreet`, `userNumero`, `classId`, `role`) VALUES
+(14, 'superadmin@admin.fr', NULL, 'Suuper', 'Admin', '100', NULL, '0000000000', NULL, '57000', 'admin city', 'admin street', NULL, 4, 'super_admin'),
+(17, 'agnes.yoann@gmail.com', '$2y$10$2LXItZ8/vEEMrsGIW6cEtuf3H6shU4s/RbvIh/IyqER', 'Agnes', 'Yoann', '22', NULL, '0781547774', NULL, '57300', 'Hagondange', '15 Rue Hemingway', NULL, 3, ''),
+(19, 'test@mail.fr', '$2y$10$yRTfroN2i5se00k9rcBGJerxEHsSJSheAhPL63Ffl7a', 'Noob', 'User', '32', NULL, '3232', NULL, '3232', 'testtest@mail.fr', 'testtest@mail.fr', NULL, 4, ''),
+(22, 'Noob2@n.fr', '$2y$10$dmJyLfJugk3mMmpzleggn.gUYjRBIrm9hPeoZ9GvY73', 'Noon2', 'User2', '22', NULL, '2222222222222222', NULL, '22222', 'noob vil', 'noob voi', NULL, 3, ''),
+(23, 'testcacacacatest@testcacacacatest.fr', '$2y$10$qGKd55FBx7JYRVWGf1glKe6lOTSGnDnx4U3I.fGVdPi', 'ewqewq', 'eqweqw', '23', NULL, '3232323232', NULL, 'eqwewq', 'ewqeqw', 'ewqewq', NULL, 3, ''),
+(24, 'testENCOREtest@mail.fr', '$2y$10$XgGpbSACSj.DfNBhrdtiEu9usiDa2F.ALAvy.cJLDdT', 'testEnc', 'EncoreTest', '23', NULL, '2232323', NULL, '312321', 'ewreqw', 'eqw', NULL, 3, ''),
+(25, 'finaltest@t.fr', '$2y$10$ZsUFjxriKtJ40YkaGs4I1O8Ocw9wJctBVWCJSasHxDv', 'final', 'test', '33', NULL, '3333', NULL, '32133', 'ewqe', 'ewqef', NULL, 10, ''),
+(26, 'testcacacacatest@testcacacacatest.fr', '$2y$10$zqLxMsXVjn8QJIeWM1eAV.mXOqaUOeygb5H19xmF05o', 'testcacacacatest', 'testcacacacatest', '123', NULL, '213', NULL, '321', 'dsa', 'dsa', NULL, 3, '');
 
 -- --------------------------------------------------------
 

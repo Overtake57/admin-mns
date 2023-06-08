@@ -10,6 +10,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion Ad'mns</title>
     <link rel="stylesheet" href="../assets/style/userAccueil.css" />
+    <link rel="stylesheet" href="../assets/style/main.css" />
+
   </head>
 
   <body>
@@ -22,8 +24,8 @@
       /></a>
       <div class="nav-links">
         <ul>
-          <li><a href="../user/userAccueil.html">Absence/Retard</a></li>
-          <li><a href="../user/userDocument.html">document</a></li>
+          <li><a href="./userAccueil.php">Absence/Retard</a></li>
+          <li><a href="./userDocument.php">document</a></li>
         </ul>
       </div>
       <img
