@@ -1,0 +1,135 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+  font-family: "Roboto";
+}
+
+body {
+  background: linear-gradient(#141e30, #243b55);
+  height: 100vh;
+  position: relative;
+}
+
+#container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35%;
+  height: 80%;
+  text-align: center;
+}
+
+.marge {
+  margin-bottom: 15px;
+}
+
+input {
+  font-weight: 500;
+  background: transparent;
+}
+
+#logo {
+  width: 70%;
+  margin-bottom: 25px;
+}
+
+.input {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  /* background: transparent; */
+}
+
+#containerInt {
+  background: rgba(0, 0, 0, 0.325);
+  width: 400px;
+  height: 500px;
+  margin: auto;
+  margin-top: 10%;
+  color: #fcfcfc;
+}
+
+#mdpoublié {
+  color: white;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+label {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.marginBot {
+  margin-bottom: 15px;
+  padding: 5px;
+  color: rgb(46, 174, 203);
+}
+
+@media screen and (min-width: 768px) {
+  #logo {
+    width: 120px;
+    height: 150px;
+    margin-top: 10px;
+  }
+  .input {
+    border-color: rgb(255, 255, 255);
+    width: 80%;
+  }
+  #mdpoublié {
+    font-size: 18px;
+  }
+  .space {
+    font-size: 20px;
+  }
+  .marginBot {
+    font-size: 10px;
+  }
+  #button {
+    width: 150px;
+    height: 50px;
+    font-size: 19px;
+  }
+}
+
+@media screen and (min-width: 320px) and (max-width: 768px) {
+  #logo {
+    width: 80px;
+    height: 100px;
+    margin-top: 10px;
+  }
+  .input {
+    border-color: rgb(255, 255, 255);
+    width: 80%;
+  }
+  #mdpoublié {
+    font-size: 15px;
+  }
+  .space {
+    font-size: 15px;
+  }
+  .marginBot {
+    font-size: 10px;
+  }
+  #containerInt {
+    width: 150%;
+    height: 70%;
+  }
+  #container {
+    top: 55%;
+    left: 38%;
+    width: 50%;
+    height: 85%;
+  }
+  #button {
+    margin-top: 20px;
+    width: 150px;
+    height: 30px;
+  }
+}
