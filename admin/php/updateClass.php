@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // Vérifier si l'ID de la classe est présent dans l'URL
 if (!isset($_GET['classId'])) {

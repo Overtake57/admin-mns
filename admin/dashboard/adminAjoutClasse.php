@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+$allowedRoles = array("admin", "super_admin");
+
+if (!isset($_SESSION["user"]) || !in_array($_SESSION["user"]["role"], $allowedRoles)) {
+    header("Location: ../index.php");
+    exit();
+}
 $title = "Ajout d'une classe";
 $link = "../../assets/style/adminAjoutClasse.css";
 include "../includes/header.php";

@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+$disallowedRoles = array("admin", "super_admin");
+
+if (!isset($_SESSION["user"]) || in_array($_SESSION["user"]["role"], $disallowedRoles)) {
+    header("Location: ../index.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>

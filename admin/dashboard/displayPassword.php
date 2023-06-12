@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+$allowedRoles = array("admin", "super_admin");
+
+if (!isset($_SESSION["user"]) || !in_array($_SESSION["user"]["role"], $allowedRoles)) {
+    header("Location: ../index.php");
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>

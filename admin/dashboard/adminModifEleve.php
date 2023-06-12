@@ -1,4 +1,12 @@
 <?php
+session_start();
+
+$allowedRoles = array("admin", "super_admin");
+
+if (!isset($_SESSION["user"]) || !in_array($_SESSION["user"]["role"], $allowedRoles)) {
+    header("Location: ../index.php");
+    exit();
+}
 $link = "../../assets/style/adminAjoutEleve.css";
 $title = "Modification d'un élève";
 include "../includes/header.php";

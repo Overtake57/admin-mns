@@ -1,4 +1,6 @@
 <?php
+
+require_once "../../connexion/connect.php";
 // Ajout d'une classe
 function addClass(PDO $conn, string $className, string $classDesc): void
 {
@@ -176,4 +178,15 @@ class User
         $this->className = $className;
         $this->passwordHash = $passwordHash;
     }
+}
+
+function getUserByEmail($email, $conn)
+{
+    $sql = "SELECT * FROM tbluser WHERE userMail = :userMail";
+    $query = $conn->prepare($sql);
+    $query->bindValue(':userMail', $email, PDO::PARAM_STR);
+    $query->execute();
+    $user = $query->fetch();
+
+    return $user;
 }

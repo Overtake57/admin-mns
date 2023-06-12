@@ -1,7 +1,15 @@
 <?php
+session_start();
+
+$allowedRoles = array("admin", "super_admin");
+
+if (!isset($_SESSION["user"]) || !in_array($_SESSION["user"]["role"], $allowedRoles)) {
+    header("Location: ../index.php");
+    exit();
+}
 $title = "Affichage des classes";
 $link = "../../assets/style/adminClasses.css";
-session_start();
+
 require_once $_SERVER['DOCUMENT_ROOT'] . "/connexion/connect.php";
 require_once "../includes/header.php";
 require_once "../php/function.php";
