@@ -37,7 +37,7 @@ if (isset($_GET['studentId'])) {
                 // Validation des données d'entrée
                 if (strlen($surname) > 50 || strlen($name) > 50 || strlen($age) > 3 || strlen($phone) > 20 || strlen($email) > 255 || strlen($city) > 50 || strlen($street) > 100 || strlen($cp) > 10) {
                     $_SESSION['erreur'] = "Les valeurs entrées sont trop longues";
-                    header('Location: ../dashboard/adminModifierEleve.php?studentId=' . $studentId);
+                    header('Location: ../views/adminModifierEleve.php?studentId=' . $studentId);
                     exit();
                 }
 
@@ -47,28 +47,28 @@ if (isset($_GET['studentId'])) {
 
                     $_SESSION['message'] = "Détails de l'élève mis à jour";
 
-                    header('Location: ../dashboard/index.php');
+                    header('Location: ../views/index.php');
                     exit();
                 } catch (Exception $e) {
                     $_SESSION['erreur'] = "Une erreur s'est produite lors de la mise à jour des détails de l'élève";
                     // Vous pouvez afficher ou enregistrer l'erreur complète pour le débogage : $e->getMessage()
 
-                    header('Location: ../dashboard/adminModifierEleve.php?studentId=' . $studentId);
+                    header('Location: ../views/adminModifierEleve.php?studentId=' . $studentId);
                     exit();
                 }
             } else {
                 $_SESSION['erreur'] = "Le formulaire est incomplet";
-                header('Location: ../dashboard/adminModifierEleve.php?studentId=' . $studentId);
+                header('Location: ../views/adminModifierEleve.php?studentId=' . $studentId);
                 exit();
             }
         }
     } else {
         $_SESSION['erreur'] = "Elève non trouvé";
-        header('Location: ../dashboard/adminAccueil.php');
+        header('Location: ../views/adminAccueil.php');
         exit();
     }
 } else {
     $_SESSION['erreur'] = "Aucun élève sélectionné pour la modification";
-    header('Location: ../dashboard/adminAccueil.php');
+    header('Location: ../views/adminAccueil.php');
     exit();
 }

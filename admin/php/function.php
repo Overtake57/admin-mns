@@ -190,3 +190,20 @@ function getUserByEmail($email, $conn)
 
     return $user;
 }
+function getAdminStudents($conn)
+{
+    $sql = "SELECT u.*, c.className FROM tbluser u JOIN tblclass c ON u.classId = c.classId WHERE u.role = 'admin'";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}
+
+function getUserStudents($conn)
+{
+    $sql = "SELECT u.*, c.className FROM tbluser u JOIN tblclass c ON u.classId = c.classId WHERE u.role = 'user'";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $result;
+}

@@ -1,22 +1,23 @@
 <?php
-session_start();
-
-$allowedRoles = array("admin", "super_admin");
-
-if (!isset($_SESSION["user"]) || !in_array($_SESSION["user"]["role"], $allowedRoles)) {
-    header("Location: ../index.php");
-    exit();
-}
+include "../_protect.php";
 $title = "Gestion des élèves";
 $link = "../../assets/style/adminAccueil.css";
 include "../includes/header.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/connexion/connect.php";
 require_once "../php/function.php";
 
-$students = getStudents($conn);
+$role = $_SESSION["user"]["role"]; // Récupérez le rôle de l'utilisateur connecté (remplacez par votre propre logique)
+
+if ($role === "super_admin") {
+    $students = getAdminStudents($conn);
+} elseif ($role === "admin") {
+    $students = getUserStudents($conn);
+} else {
+    $students = array(); // Aucun utilisateur à afficher pour les autres rôles
+}
 ?>
 
-    <div id="container-eleves">
+<div id="container-eleves">
     <ul>
         <div>
             <li>Nom de l'élève :</li>
@@ -27,18 +28,15 @@ $students = getStudents($conn);
     </ul>
 </div>
 
-
-    <div id="container-main">
-        <div id="main-tab">
-        <table  class="tableau">
+<div id="container-main">
+    <div id="main-tab">
+        <table class="tableau">
             <tr>
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Classe</th>
                 <th>Outils</th>
             </tr>
-        </div>
-
             <?php
 $index = 0;
 if (!empty($students)) {
@@ -60,9 +58,9 @@ if (!empty($students)) {
 ?>
         </table>
     </div>
+</div>
 
-    <script src="../../assets/javascript/script.js"></script>
+<script src="../../assets/javascript/script.js"></script>
 
 </body>
-
 </html>

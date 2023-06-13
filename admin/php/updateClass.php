@@ -43,7 +43,7 @@ if (
 
         $_SESSION['message'] = "Classe mise à jour";
 
-        header('Location: ../dashboard/adminClasse.php');
+        header('Location: ../views/adminClasse.php');
         exit();
     } catch (Exception $e) {
         $_SESSION['erreur'] = "Une erreur s'est produite lors de la mise à jour de la classe";

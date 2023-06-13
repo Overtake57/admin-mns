@@ -14,7 +14,7 @@
 <body>
     <header>
         <nav class="navbar">
-            <a href="#" class="logo">
+            <a href="../php/logout.php" class="logo">
                 <img src="../../assets/img/pngwing.com.png" alt="logo deconnexion" id="logout" />
             </a>
             <div class="nav-links">

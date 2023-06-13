@@ -1,8 +1,9 @@
 <?php
-
 session_start();
-
-if (!isset($_SESSION['connected']) || $_SESSION['connected'] != "ok") {
-
-    header("Location:" . $_SERVER['DOCUMENT_ROOT'] . "/index.php");
+// Vérification des droits d'accès de la page
+$allowedRoles = array("admin", "super_admin");
+// Vérifie si l'utilisateur est connecté, sinon redirection vers la page de connexion
+if (!isset($_SESSION["user"]) || !in_array($_SESSION["user"]["role"], $allowedRoles)) {
+    header("Location: ../index.php");
+    exit();
 }

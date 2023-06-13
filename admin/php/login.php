@@ -25,9 +25,9 @@ if (!empty($_POST)) {
         ];
         $role = $user['role'];
         if ($role === 'super_admin') {
-            header('Location: ../dashboard/index.php');
+            header('Location: ../views/index.php');
         } elseif ($role === 'admin') {
-            header('Location: ../dashboard/index.php');
+            header('Location: ../views/index.php');
         } elseif ($role === 'user') {
             header('Location: ../../user/userAccueil.php');
         } else {

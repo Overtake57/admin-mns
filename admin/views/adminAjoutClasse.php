@@ -1,19 +1,13 @@
 <?php
-session_start();
-
-$allowedRoles = array("admin", "super_admin");
-
-if (!isset($_SESSION["user"]) || !in_array($_SESSION["user"]["role"], $allowedRoles)) {
-    header("Location: ../index.php");
-    exit();
-}
+include "../_protect.php";
 $title = "Ajout d'une classe";
 $link = "../../assets/style/adminAjoutClasse.css";
 include "../includes/header.php";
 if (!empty($_SESSION['erreur'])): ?>
+
+
     <p class="error"><?php echo $_SESSION['erreur']; ?></p>
     <?php unset($_SESSION['erreur']);endif;?>
-
   <div id="container-main">
     <main>
       <form method="post" action="../php/addClass.php">

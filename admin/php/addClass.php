@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $_SESSION['message'] = "Classe ajoutée";
 
-            header('Location: ../dashboard/adminClasse.php');
+            header('Location: ../views/adminClasse.php');
             exit();
         } catch (Exception $e) {
             // En cas d'erreur, annulation des modifications
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['erreur'] = "Une erreur s'est produite lors de l'ajout de la classe";
             // Vous pouvez afficher ou enregistrer l'erreur complète pour le débogage : $e->getMessage()
 
-            header('Location: ../dashboard/adminAjoutClasse.php');
+            header('Location: ../views/adminAjoutClasse.php');
             exit();
         }
     }

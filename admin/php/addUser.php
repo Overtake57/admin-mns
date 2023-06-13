@@ -34,7 +34,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $userMail = $email;
 
         // Générer un mot de passe aléatoire
-        $password = randomPassword();
+        //? $password = randomPassword();
+
+        $password = "qwerty";
 
         // Hacher le mot de passe
         $passwordHash = passwordHash($password);
@@ -45,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Appeler la fonction addUser pour insérer les données
         addUser($conn, $user);
 
-        //TODO Envoyer l'e-mail contenant le mot de passe généré à l'adresse e-mail de l'utilisateur
+        //? Envoyer l'e-mail contenant le mot de passe généré à l'adresse e-mail de l'utilisateur
         // $subject = "Nouveau mot de passe";
         // $message = "Votre mot de passe temporaire est : " . $password;
         // $headers = "From: your_email@example.com"; // Remplacez par notre adresse e-mail
@@ -58,15 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Rediriger vers la page principale avec un message de succès
         $_SESSION['success'] = "L'élève a été ajouté avec succès.";
-        header("Location: ../dashboard/index.php");
+        header("Location: ../views/index.php");
         exit();
     } catch (Exception $e) {
         $_SESSION['erreur'] = "Une erreur s'est produite lors de l'ajout de l'élève : " . $e->getMessage();
-        header("Location: ../dashboard/adminAjoutEleve.php");
+        header("Location: ../views/adminAjoutEleve.php");
         exit();
     }
 } else {
     // Rediriger vers la page d'ajout d'élève si la méthode de requête n'est pas POST
-    header("Location: ../dashboard/adminAjoutEleve.php");
+    header("Location: ../views/adminAjoutEleve.php");
     exit();
 }
