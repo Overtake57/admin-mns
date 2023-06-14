@@ -164,6 +164,7 @@ class User
     public $cp;
     public $className;
     public $passwordHash;
+    public $role;
 
     public function __construct($surname, $name, $age, $phone, $email, $city, $street, $cp, $className, $passwordHash)
     {
@@ -177,6 +178,10 @@ class User
         $this->cp = $cp;
         $this->className = $className;
         $this->passwordHash = $passwordHash;
+    }
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 }
 

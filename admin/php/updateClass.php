@@ -33,7 +33,7 @@ if (
     // Validation des données d'entrée
     if (strlen($className) > 50 || strlen($classDesc) > 255) {
         $_SESSION['erreur'] = "Les valeurs entrées sont trop longues";
-        header('Location: ../adminModifierClasse.php?classId=' . $classId);
+        header('Location: ../modificationClasse.php?classId=' . $classId);
         exit();
     }
 
@@ -43,17 +43,17 @@ if (
 
         $_SESSION['message'] = "Classe mise à jour";
 
-        header('Location: ../views/adminClasse.php');
+        header('Location: ../views/listeClasse.php');
         exit();
     } catch (Exception $e) {
         $_SESSION['erreur'] = "Une erreur s'est produite lors de la mise à jour de la classe";
         // Vous pouvez afficher ou enregistrer l'erreur complète pour le débogage : $e->getMessage()
 
-        header('Location: ../adminModifierClasse.php?classId=' . $classId);
+        header('Location: ../modificationClasse.php?classId=' . $classId);
         exit();
     }
 } else {
     $_SESSION['erreur'] = "Le formulaire est incomplet";
-    header('Location: ../adminModifierClasse.php?classId=' . $classId);
+    header('Location: ../modificationClasse.php?classId=' . $classId);
     exit();
 }

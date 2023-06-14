@@ -33,7 +33,8 @@
                 </div>
             </form>
         </div>
-        <a href="" id="mdpoublié">Mot de passe oublié ?</a>
+        <? // form page ?>
+        <a href="#" id="mdpoublié">Mot de passe oublié ?</a>
     </div>
 </body>
 

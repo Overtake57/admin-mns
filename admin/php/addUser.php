@@ -1,4 +1,8 @@
 <?php
+session_start();
+
+require_once "../../connexion/connect.php";
+require_once "../php/function.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
@@ -31,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cp = htmlspecialchars($cp, ENT_QUOTES);
 
         // Stocker l'adresse e-mail dans une variable
-        $userMail = $email;
+        // $userMail = $email;
 
         // Générer un mot de passe aléatoire
         //? $password = randomPassword();
@@ -43,6 +47,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Créer un objet User avec les détails de l'utilisateur
         $user = new User($surname, $name, $age, $phone, $email, $city, $street, $cp, $className, $passwordHash);
+
+        // Ajouter le rôle approprié en fonction de l'utilisateur actuel
+        if ($_SESSION['user']['role'] === 'super_admin') {
+            $user->setRole('admin');
+        } elseif ($_SESSION['user']['role'] === 'admin') {
+            $user->setRole('user');
+        }
 
         // Appeler la fonction addUser pour insérer les données
         addUser($conn, $user);
@@ -64,11 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     } catch (Exception $e) {
         $_SESSION['erreur'] = "Une erreur s'est produite lors de l'ajout de l'élève : " . $e->getMessage();
-        header("Location: ../views/adminAjoutEleve.php");
+        header("Location: ../views/ajoutUtilisateur.php");
         exit();
     }
 } else {
     // Rediriger vers la page d'ajout d'élève si la méthode de requête n'est pas POST
-    header("Location: ../views/adminAjoutEleve.php");
+    header("Location: ../views/ajoutUtilisateur.php");
     exit();
 }

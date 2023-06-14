@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Validation des données d'entrée
         if (strlen($className) > 50 || strlen($classDesc) > 255) {
             $_SESSION['erreur'] = "Les valeurs entrées sont trop longues";
-            header('Location: ../adminAjoutClasse.php');
+            header('Location: ../ajoutClasse.php');
             exit();
         }
 
@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             $_SESSION['message'] = "Classe ajoutée";
 
-            header('Location: ../views/adminClasse.php');
+            header('Location: ../views/listeClasse.php');
             exit();
         } catch (Exception $e) {
             // En cas d'erreur, annulation des modifications
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['erreur'] = "Une erreur s'est produite lors de l'ajout de la classe";
             // Vous pouvez afficher ou enregistrer l'erreur complète pour le débogage : $e->getMessage()
 
-            header('Location: ../views/adminAjoutClasse.php');
+            header('Location: ../views/ajoutClasse.php');
             exit();
         }
     }
@@ -44,5 +44,5 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 // Si le formulaire est incomplet
 $_SESSION['erreur'] = "Le formulaire est incomplet";
-header('Location: ../adminAjoutClasse.php');
+header('Location: ../ajoutClasse.php');
 exit();

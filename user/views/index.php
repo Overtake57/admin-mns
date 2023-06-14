@@ -1,5 +1,9 @@
 <?php
 session_start();
+include "../_protect.php";
+$title = "Accueil";
+$link = "../../assets/style/userAccueil.css";
+include "../includes/header.php";
 
 $disallowedRoles = array("admin", "super_admin");
 

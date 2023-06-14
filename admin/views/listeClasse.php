@@ -27,7 +27,7 @@ if ($classes === false) {
             <li>Nom de l'élève :</li>
             <li>Prénom de l'élève :</li>
             <li>Classe de l'élève :</li>
-            <li><button><a href="./adminAjoutClasse.php"> <i class="fa-solid fa-user-plus"></i></a></button></li>
+            <li><button><a href="./ajoutClasse.php"> <i class="fa-solid fa-user-plus"></i></a></button></li>
         </div>
     </ul>
     </div>
@@ -57,7 +57,7 @@ if (count($classes) > 0) {
 
         echo "<td>" . $studentCount . "</td>";
         echo "<td>";
-        echo '<a href="./adminModifClasse.php?classId=' . $class["classId"] . '" class="button">Modifier</a>';
+        echo '<a href="./modificationClasse.php?classId=' . $class["classId"] . '" class="button">Modifier</a>';
         echo "</td>";
         echo "</tr>";
         $index++;

@@ -23,7 +23,7 @@ if ($role === "super_admin") {
             <li>Nom de l'élève :</li>
             <li>Prénom de l'élève :</li>
             <li>Classe de l'élève :</li>
-            <li><button><a href="./adminAjoutEleve.php"> <i class="fa-solid fa-user-plus"></i></a></button></li>
+            <li><button><a href="./ajoutUtilisateur.php"> <i class="fa-solid fa-user-plus"></i></a></button></li>
         </div>
     </ul>
 </div>
@@ -47,7 +47,7 @@ if (!empty($students)) {
         echo "<td>" . $row["className"] . "</td>";
         echo "<td>";
         echo '<a href="#" class="button">Absent</a>';
-        echo '<a href="./adminModifEleve.php?studentId=' . $row["userId"] . '" class="button">Modifier</a>';
+        echo '<a href="./modificationUtilisateur.php?studentId=' . $row["userId"] . '" class="button">Modifier</a>';
         echo "</td>";
         echo "</tr>";
         $index++;
