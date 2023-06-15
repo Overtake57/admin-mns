@@ -29,7 +29,7 @@ if (!empty($_POST)) {
         } elseif ($role === 'admin') {
             header('Location: ../views/index.php');
         } elseif ($role === 'user') {
-            header('Location: ../../user/userAccueil.php');
+            header('Location: ../../user/views/index.php');
         } else {
             // Rôle non reconnu, afficher un message d'erreur ou rediriger vers une page par défaut
             die("Rôle non autorisé.");

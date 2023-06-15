@@ -1,8 +1,4 @@
 <?php
-session_start();
-
-require_once "../../connexion/connect.php";
-require_once "../php/function.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
@@ -35,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cp = htmlspecialchars($cp, ENT_QUOTES);
 
         // Stocker l'adresse e-mail dans une variable
-        // $userMail = $email;
+        $userMail = $email;
 
         // Générer un mot de passe aléatoire
         //? $password = randomPassword();
@@ -48,15 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Créer un objet User avec les détails de l'utilisateur
         $user = new User($surname, $name, $age, $phone, $email, $city, $street, $cp, $className, $passwordHash);
 
-        // Ajouter le rôle approprié en fonction de l'utilisateur actuel
-        if ($_SESSION['user']['role'] === 'super_admin') {
-            $user->setRole('admin');
-        } elseif ($_SESSION['user']['role'] === 'admin') {
-            $user->setRole('user');
-        }
+        $loggedInUserRole = 'admin'; // Rôle de l'utilisateur connecté
 
-        // Appeler la fonction addUser pour insérer les données
-        addUser($conn, $user);
+        // Vérifiez si l'utilisateur connecté est un "admin" ou un "super_admin"
+        if ($loggedInUserRole === 'admin') {
+            // L'utilisateur connecté a le rôle "admin", donc les nouveaux utilisateurs auront le rôle "user"
+            addUser($conn, $user, 'user');
+        } elseif ($loggedInUserRole === 'super_admin') {
+            // L'utilisateur connecté a le rôle "super_admin", donc les nouveaux utilisateurs auront le rôle "admin"
+            addUser($conn, $user, 'admin');
+        }
 
         //? Envoyer l'e-mail contenant le mot de passe généré à l'adresse e-mail de l'utilisateur
         // $subject = "Nouveau mot de passe";
