@@ -76,6 +76,15 @@ label {
   color: rgb(46, 174, 203);
 }
 
+.mdp i {
+  cursor: pointer;
+}
+
+.mdp i.active::before {
+  content: "\f070";
+  color: snow;
+}
+
 @media screen and (min-width: 768px) {
   #logo {
     width: 120px;

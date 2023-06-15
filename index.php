@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Connexion Ad'mns</title>
     <link rel="stylesheet" href="./assets/style/login.css" />
+    <script src="https://kit.fontawesome.com/7f42edb45d.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -24,7 +25,10 @@
                     <div>
                         <label for="userPwd" class="space">Mot de passe </label>
                     </div>
-                    <input type="password" class="input" name="userPwd" id="userPwd" required />
+                    <div class="mdp">
+                        <input type="password" class="input" name="userPwd" id="userPwd" required />
+                        <i class="fa-solid fa-eye"></i>
+                    </div>
                 </div>
                 <div class="">
                     <span>
@@ -36,6 +40,23 @@
         <? // form page ?>
         <a href="#" id="mdpoublié">Mot de passe oublié ?</a>
     </div>
+
+<script>
+    let input = document.querySelector('.mdp input');
+    let showBtn = document.querySelector('.mdp i');
+    
+    showBtn.onclick =function(){
+        if(input.type === "password"){
+            input.type = "text";
+            showBtn.classList.add('active');
+        } else {
+            input.type = "password";
+            showBtn.classList.remove('active');
+
+        }
+    }
+</script>
+
 </body>
 
 </html>
