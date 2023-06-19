@@ -13,11 +13,6 @@ if (!isset($_SESSION["user"]) || in_array($_SESSION["user"]["role"], $disallowed
 ?>
 
     <div id="container-eleves">
-      <ul>
-        <li>Nom de l'élève :</li>
-        <li>Prénom de l'élève :</li>
-        <li>Classe de l'élève :</li>
-      </ul>
     </div>
     <div id="container-main">
       <div class="inContainer">

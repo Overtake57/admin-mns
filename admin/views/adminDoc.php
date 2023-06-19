@@ -4,13 +4,6 @@ $title = "Documents";
 $link = "../../assets/style/adminDocument.css";
 include "../includes/header.php";
 ?>
-    <div id="container-eleves">
-        <ul>
-            <li>Nom de l'élève :</li>
-            <li>Prénom de l'élève :</li>
-            <li>Classe de l'élève :</li>
-        </ul>
-    </div>
     <div id="container-main">
         <div id="container-main1">
             <h2>Documents fournis :</h2>
