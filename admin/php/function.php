@@ -14,51 +14,10 @@ function addClass(PDO $conn, string $className, string $classDesc): void
     $query->execute();
 }
 
-// Verification de doublon d'email
-function checkDuplicateEmail(PDO $conn, string $email): bool
-{
-    $sql = 'SELECT COUNT(*) FROM tbluser WHERE userMail = :email';
-    $query = $conn->prepare($sql);
-    $query->bindValue(':email', $email, PDO::PARAM_STR);
-    $query->execute();
-
-    $count = $query->fetchColumn();
-
-    return $count > 0;
-}
-
-// Verification de doublon numero de telephone
-function checkDuplicatePhone(PDO $conn, string $phone): bool
-{
-    $sql = 'SELECT COUNT(*) FROM tbluser WHERE userPhone = :phone';
-    $query = $conn->prepare($sql);
-    $query->bindValue(':phone', $phone, PDO::PARAM_STR);
-    $query->execute();
-
-    $count = $query->fetchColumn();
-
-    return $count > 0;
-}
-
 // Ajout d'un élève
-function addUser(PDO $conn, User $user, string $role,  ? int $className = null) : void
+function addUser(PDO $conn, User $user): void
 {
-    $emailExists = checkDuplicateEmail($conn, $user->email);
-    $phoneExists = checkDuplicatePhone($conn, $user->phone);
-
-    if ($emailExists) {
-        // Afficher un message d'erreur pour l'adresse e-mail existante
-        echo "L'adresse e-mail existe déjà.";
-        return;
-    }
-
-    if ($phoneExists) {
-        // Afficher un message d'erreur pour le numéro de téléphone existant
-        echo "Le numéro de téléphone existe déjà.";
-        return;
-    }
-
-    $sql = 'INSERT INTO tbluser (userSurname, userName, userAge, userPhone, userMail, userCity, userStreet, userCp, classId, userPwd, role) VALUES (:userSurname, :userName, :userAge, :userPhone, :userMail, :userCity, :userStreet, :userCp, :classId, :userPwd, :role)';
+    $sql = 'INSERT INTO tbluser (userSurname, userName, userAge, userPhone, userMail, userCity, userStreet, userCp, classId, userPwd) VALUES (:userSurname, :userName, :userAge, :userPhone, :userMail, :userCity, :userStreet, :userCp, :classId, :userPwd)';
 
     $query = $conn->prepare($sql);
 
@@ -70,25 +29,11 @@ function addUser(PDO $conn, User $user, string $role,  ? int $className = null) 
     $query->bindValue(':userCity', $user->city, PDO::PARAM_STR);
     $query->bindValue(':userStreet', $user->street, PDO::PARAM_STR);
     $query->bindValue(':userCp', $user->cp, PDO::PARAM_STR);
+    $query->bindValue(':classId', $user->className, PDO::PARAM_INT);
     $query->bindValue(':userPwd', $user->passwordHash, PDO::PARAM_STR);
-    $query->bindValue(':role', $role, PDO::PARAM_STR);
-
-    // Bind the className parameter if it is provided
-    if ($className !== null) {
-        $query->bindValue(':classId', $className, PDO::PARAM_INT);
-    } else {
-        $query->bindValue(':classId', null, PDO::PARAM_NULL);
-    }
 
     $query->execute();
-
-    if (createUserFolder($user->surname, $user->name)) {
-        echo "Dossier créé pour l'utilisateur : " . $user->surname . ' ' . $user->name;
-    } else {
-        echo "Échec de la création du dossier pour l'utilisateur : " . $user->surname . ' ' . $user->name;
-    }
 }
-
 // Récupération des classes
 function getClasses(PDO $conn): array
 {
@@ -259,7 +204,6 @@ function getAdminStudents($conn)
     return $result;
 }
 
-// Récupérer les détails d'un utilisateur par son identifiant
 function getUserStudents($conn)
 {
     $sql = "SELECT u.*, c.className FROM tbluser u JOIN tblclass c ON u.classId = c.classId WHERE u.role = 'user'";
@@ -267,23 +211,4 @@ function getUserStudents($conn)
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
-}
-
-// Créer un dossier pour un utilisateur
-function createUserFolder(string $surname, string $name): bool
-{
-    $folderName = $surname . '_' . $name;
-    $path = '../uploads/' . $folderName;
-
-    // Vérifier si le dossier existe déjà
-    if (is_dir($path)) {
-        return false; // Le dossier existe déjà
-    }
-
-    // Créer le dossier
-    if (!mkdir($path, 0777, true)) {
-        return false; // Impossible de créer le dossier
-    }
-
-    return true; // Dossier créé avec succès
 }

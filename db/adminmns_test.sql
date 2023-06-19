@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 14, 2023 at 09:32 AM
+-- Generation Time: Jun 12, 2023 at 12:02 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -76,14 +76,14 @@ CREATE TABLE IF NOT EXISTS `tblclass` (
 --
 
 INSERT INTO `tblclass` (`classId`, `className`, `classDesc`, `archived`) VALUES
-(3, 'Dev 2666', 'Dev Web et Web Mobile', 0),
+(3, 'Dev 2', 'Dev Web et Web Mobile', 0),
 (4, 'Dev 3', 'Dev Web & Web Mobile', 0),
 (5, 'Dev 4', 'Dev Web et Web Mobile', 0),
 (6, 'Dev 5', 'Dev Web et Web Mobile', 0),
 (8, 'Dev 23', 'Dev Web et Web Mobile', 0),
 (9, 'test', 'test', 0),
 (10, 'test4', 'test4', 0),
-(11, 'test 12', '43', 0),
+(11, 'test 5', '43', 0),
 (12, 'dev test', 'testtestetesttesttestetesttesttestetesttesttestete', 0);
 
 -- --------------------------------------------------------
@@ -174,17 +174,22 @@ CREATE TABLE IF NOT EXISTS `tbluser` (
   `role` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`userId`),
   KEY `classId` (`classId`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbluser`
 --
 
 INSERT INTO `tbluser` (`userId`, `userMail`, `userPwd`, `userSurname`, `userName`, `userAge`, `userInscription`, `userPhone`, `userImage`, `userCp`, `userCity`, `userStreet`, `userNumero`, `classId`, `role`) VALUES
-(14, 'superadmin@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Super', 'Admin', '100', NULL, '1111111111', NULL, '57000', 'Super Admin', 'Super Admin', NULL, 3, 'super_admin'),
-(17, 'admin@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Simple', 'Admin', '90', NULL, '999999999', NULL, '57000', 'Admin', 'Admin', NULL, 3, 'admin'),
-(19, 'user@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'New', 'User', '10', NULL, '222222222', NULL, '57000', 'User', 'User', NULL, 4, 'user'),
-(31, 'admin2@mail.com', '$2y$10$FB8wMQt6MbcRLn/UIZbzB.kZb4XoPsItgLWSNN/jgG3', 'Simple 2', 'Admin 2', '30', NULL, '33333333333', NULL, '57000', 'Ville', 'Voie', NULL, 3, '');
+(14, 'superadmin@admin.fr', NULL, 'Suuper', 'Admin', '100', NULL, '0000000000', NULL, '57000', 'admin city', 'admin street', NULL, 4, 'super_admin'),
+(17, 'agnes.yoann@gmail.com', '$2y$10$2LXItZ8/vEEMrsGIW6cEtuf3H6shU4s/RbvIh/IyqER', 'Agnes', 'Yoann', '22', NULL, '0781547774', NULL, '57300', 'Hagondange', '15 Rue Hemingway', NULL, 3, 'super_admin'),
+(19, 'test@mail.fr', '$2y$10$yRTfroN2i5se00k9rcBGJerxEHsSJSheAhPL63Ffl7a', 'Noob', 'User', '32', NULL, '3232', NULL, '3232', 'testtest@mail.fr', 'testtest@mail.fr', NULL, 4, ''),
+(22, 'Noob2@n.fr', '$2y$10$dmJyLfJugk3mMmpzleggn.gUYjRBIrm9hPeoZ9GvY73', 'Noon2', 'User2', '22', NULL, '2222222222222222', NULL, '22222', 'noob vil', 'noob voi', NULL, 3, ''),
+(23, 'testcacacacatest@testcacacacatest.fr', '$2y$10$qGKd55FBx7JYRVWGf1glKe6lOTSGnDnx4U3I.fGVdPi', 'ewqewq', 'eqweqw', '23', NULL, '3232323232', NULL, 'eqwewq', 'ewqeqw', 'ewqewq', NULL, 3, ''),
+(24, 'testENCOREtest@mail.fr', '$2y$10$XgGpbSACSj.DfNBhrdtiEu9usiDa2F.ALAvy.cJLDdT', 'testEnc', 'EncoreTest', '23', NULL, '2232323', NULL, '312321', 'ewreqw', 'eqw', NULL, 3, ''),
+(25, 'finaltest@t.fr', '$2y$10$ZsUFjxriKtJ40YkaGs4I1O8Ocw9wJctBVWCJSasHxDv', 'final', 'test', '33', NULL, '3333', NULL, '32133', 'ewqe', 'ewqef', NULL, 10, ''),
+(26, 'testcacacacatest@testcacacacatest.fr', '$2y$10$zqLxMsXVjn8QJIeWM1eAV.mXOqaUOeygb5H19xmF05o', 'testcacacacatest', 'testcacacacatest', '123', NULL, '213', NULL, '321', 'dsa', 'dsa', NULL, 3, ''),
+(27, '33testtest@mail.fr', '$2y$10$3v4TfpopIhJyeUIsKDwTneNDPqz.NSVNKfblS.aamkA', 'testpass', 'testpass', '33', NULL, '33', NULL, '321', 'test', 'tset', NULL, 3, '');
 
 -- --------------------------------------------------------
 

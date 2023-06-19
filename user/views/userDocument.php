@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../_protect.php";
 $title = "Mes documents";
 $link = "../../assets/style/userDocument.css";
