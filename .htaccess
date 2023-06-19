@@ -1,0 +1,16 @@
+RewriteEngine On
+
+# Redirection pour l'erreur 400
+ErrorDocument 400 /error/page400.php
+
+# Redirection pour l'erreur 401
+ErrorDocument 401 /error/page401.php
+
+# Redirection pour l'erreur 403
+ErrorDocument 403 /error/page403.php
+
+# Redirection pour l'erreur 404
+ErrorDocument 404 /error/page404.php
+
+# Redirection pour l'erreur 500
+ErrorDocument 500 /error/page500.php
