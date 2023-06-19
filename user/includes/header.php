@@ -13,20 +13,20 @@
 <body>
   <header>
     <nav class="navbar">
-      <a href="../../admin/php/logout.php" class="logo"
+      <a href="#" class="logo"
         ><img
-          src="../../assets/img/pngwing.com.png"
+          src="../assets/img/pngwing.com.png"
           alt="logo deconnexion"
           id="logout"
       /></a>
       <div class="nav-links">
         <ul>
-          <li><a href="./index.php">Absence/Retard</a></li>
+          <li><a href="./userAccueil.php">Absence/Retard</a></li>
           <li><a href="./userDocument.php">document</a></li>
         </ul>
       </div>
       <img
-        src="../../assets/img/menuBurger.png"
+        src="../assets/img/menuBurger.png"
         alt="Logo menuBurger"
         class="menu-hamburger"
       />

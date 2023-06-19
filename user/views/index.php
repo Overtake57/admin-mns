@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "../_protect.php";
 $title = "Accueil";
 $link = "../../assets/style/userAccueil.css";

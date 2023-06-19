@@ -19,10 +19,10 @@
             </a>
             <div class="nav-links">
                 <ul>
-                    <li><a href="./index.php">Utilisateurs</a></li>
+                    <li><a href="./index.php">Elèves</a></li>
                     <li><a href="./listeClasse.php">Classes</a></li>
                     <li><a href="./adminLate.php">Absence/Retard</a></li>
-                    <li><a href="./adminDoc.php">Documents</a></li>
+                    <li><a href="./adminDoc.php">Document </a></li>
                 </ul>
             </div>
             <img src="../../assets/img/menuBurger.png" alt="" class="menu-hamburger" />
