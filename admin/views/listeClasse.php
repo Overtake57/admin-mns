@@ -22,14 +22,9 @@ if ($classes === false) {
 }
 ?>
     <div id="container-eleves">
-      <ul>
         <div>
-            <li>Nom de l'élève :</li>
-            <li>Prénom de l'élève :</li>
-            <li>Classe de l'élève :</li>
             <li><button><a href="./ajoutClasse.php"> <i class="fa-solid fa-user-plus"></i></a></button></li>
         </div>
-    </ul>
     </div>
 
     <div id="container-main">

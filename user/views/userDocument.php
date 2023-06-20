@@ -1,5 +1,4 @@
 <?php
-session_start();
 include "../_protect.php";
 $title = "Mes documents";
 $link = "../../assets/style/userDocument.css";
@@ -12,48 +11,81 @@ if (!isset($_SESSION["user"]) || in_array($_SESSION["user"]["role"], $disallowed
     exit();
 }
 ?>
-    <div id="container-eleves">
-      <ul>
-        <li>Nom de l'élève :</li>
-        <li>Prénom de l'élève :</li>
-        <li>Classe de l'élève :</li>
-      </ul>
-    </div>
     <div id="container-main">
-      <div id="container-main1">
-        <h2>Documents fournis</h2>
-        <table>
+    <div id="container-1">
+        <img src="../../assets/img/jimmy.jpg" alt="">
+            <div>
+              <li>Nom</li>
+              <li>prénom</li>
+              <li>classe</li>
+            </div>  
+    </div>
+
+    <div id="container-2">
+      <div>
+        <table class="tableau">
+            <h2>Mes documents :</h2>
           <tr>
-            <th>Type</th>
-            <th>Date d'envoi</th>
+            <th>Date</th>
+            <th>style</th>
+            <th>dazda</th>
           </tr>
           <tr>
-            <td>Curriculum vitae</td>
-            <td>22/02/2023</td>
+            <td>21/02/2023</td>
+            <td>rendez vous dentistes</td>
+            <td>oui</td>
           </tr>
           <tr>
-            <td>Lettre de motivation</td>
-            <td>25/02/2023</td>
+            <td>21/02/2023</td>
+            <td>rendez vous dentistes</td>
+            <td>oui</td>
+          </tr>
+          <tr>
+            <td>21/02/2023</td>
+            <td>rendez vous dentistes</td>
+            <td>oui</td>
+          </tr>
+          <tr>
+            <td>21/02/2023</td>
+            <td>rendez vous dentistes</td>
+            <td>oui</td>
+            
           </tr>
         </table>
       </div>
-      <div id="container-main2">
-        <h2>Documents en attentes</h2>
-        <table>
+
+      <div id="margin">
+        <table class="tableau">
+            <h2>documents à fournir :</h2>
           <tr>
-            <th>Type</th>
+            <th>date ?</th>
+            <th>document</th>
+            <th>type</th>
           </tr>
           <tr>
-            <td>Rib</td>
-            <td><a href="#">Envoyer</a></td>
+            <td>21/02/2023</td>
+            <td>Curriculum vitae </td>
+            <td>pdf</td>
           </tr>
           <tr>
-            <td>Fiche de paie</td>
-            <td><a href="#">Envoyer</a></td>
+            <td>21/02/2023</td>
+            <td>Curriculum vitae </td>
+            <td>pdf</td>
+          </tr><tr>
+            <td>21/02/2023</td>
+            <td>Curriculum vitae </td>
+            <td>pdf</td>
+          </tr><tr>
+            <td>21/02/2023</td>
+            <td>Curriculum vitae </td>
+            <td>pdf</td>
           </tr>
         </table>
       </div>
     </div>
+</div>
+    
+
   </body>
 
   <script>

@@ -44,8 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Créer un objet User avec les détails de l'utilisateur
         $user = new User($surname, $name, $age, $phone, $email, $city, $street, $cp, $className, $passwordHash);
 
-        // Appeler la fonction addUser pour insérer les données
-        addUser($conn, $user);
+        $loggedInUserRole = 'admin'; // Rôle de l'utilisateur connecté
+
+        // Vérifiez si l'utilisateur connecté est un "admin" ou un "super_admin"
+        if ($loggedInUserRole === 'admin') {
+            // L'utilisateur connecté a le rôle "admin", donc les nouveaux utilisateurs auront le rôle "user"
+            addUser($conn, $user, 'user');
+        } elseif ($loggedInUserRole === 'super_admin') {
+            // L'utilisateur connecté a le rôle "super_admin", donc les nouveaux utilisateurs auront le rôle "admin"
+            addUser($conn, $user, 'admin');
+        }
 
         //? Envoyer l'e-mail contenant le mot de passe généré à l'adresse e-mail de l'utilisateur
         // $subject = "Nouveau mot de passe";

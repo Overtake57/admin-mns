@@ -4,13 +4,6 @@ $title = "Absences et retards";
 $link = "../../assets/style/adminAbsenceRetard.css";
 include "../includes/header.php";
 ?>
-    <div id="container-eleves">
-      <ul>
-        <li>Nom de l'élève :</li>
-        <li>Prénom de l'élève :</li>
-        <li>Classe de l'élève :</li>
-      </ul>
-    </div>
     <div id="container-main">
       <div class="inContainer">
         <h2>Retards : <button>Oui</button><button>Non</button></h2>
