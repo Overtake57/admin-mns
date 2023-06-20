@@ -12,14 +12,23 @@ if (!isset($_SESSION["user"]) || in_array($_SESSION["user"]["role"], $disallowed
 }
 ?>
 
-    <div id="container-eleves">
-    </div>
-    <div id="container-main">
-      <div class="inContainer">
-        <table>
-          <h2>Mes absences</h2>
-          <h3>Nombre d'absence actuel :</h3>
 
+<div id="container-main">
+    <div id="container-1">
+        <img src="../../assets/img/golem.png" alt="">
+            <div>
+              <li>Nom</li>
+              <li>prénom</li>
+              <li>classe</li>
+            </div>  
+    </div>
+
+    <div id="container-2">
+      <div>
+        <table class="tableau">
+            <h2>Mes absences</h2>
+            <h3>Nombre d'absence actuel :</h3>
+            
           <tr>
             <th>Date</th>
             <th>Motif</th>
@@ -45,24 +54,13 @@ if (!isset($_SESSION["user"]) || in_array($_SESSION["user"]["role"], $disallowed
             <td>rendez vous dentistes</td>
             <td>oui</td>
           </tr>
-
-          <tr>
-            <td>21/02/2023</td>
-            <td>rendez vous dentistes</td>
-            <td>oui</td>
-          </tr>
-          <tr>
-            <td>21/02/2023</td>
-            <td>rendez vous dentistes</td>
-            <td>oui</td>
-          </tr>
         </table>
       </div>
-      <div class="inContainer">
-        <h2>Mes retards</h2>
-        <h3>Nombre de retard actuel :</h3>
 
-        <table>
+      <div id="margin">
+        <table class="tableau">
+            <h2>Mes retards</h2>
+            <h3>Nombre de retard actuel :</h3>
           <tr>
             <th>Date</th>
             <th>Motif</th>
@@ -78,18 +76,6 @@ if (!isset($_SESSION["user"]) || in_array($_SESSION["user"]["role"], $disallowed
             <td>rendez vous dentistes</td>
             <td>oui</td>
           </tr>
-
-          <tr>
-            <td>21/02/2023</td>
-            <td>rendez vous dentistes</td>
-            <td>oui</td>
-          </tr>
-          <tr>
-            <td>21/02/2023</td>
-            <td>rendez vous dentistes</td>
-            <td>oui</td>
-          </tr>
-
           <tr>
             <td>21/02/2023</td>
             <td>rendez vous dentistes</td>
@@ -103,10 +89,9 @@ if (!isset($_SESSION["user"]) || in_array($_SESSION["user"]["role"], $disallowed
         </table>
       </div>
     </div>
-    <div id="button">
-      <div><button>Envoyer une absences</button></div>
-      <div><button>Envoyer un retard</button></div>
-    </div>
+</div>
+    
+
   </body>
 
   <script>
