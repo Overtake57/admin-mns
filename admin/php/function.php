@@ -287,3 +287,40 @@ function createUserFolder(string $surname, string $name): bool
 
     return true; // Dossier créé avec succès
 }
+
+// Fonction pour récupérer les informations de l'utilisateur depuis la table "tbluser"
+function getUserData($userId)
+{
+    global $conn;
+
+    $query = "SELECT userSurname AS prenom, userName AS nom FROM tbluser WHERE userId = :userId";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+// Fonction pour enregistrer un nouveau document dans la base de données
+function addDocument($filename, $filepath, $userId)
+{
+    global $conn;
+
+    $query = "INSERT INTO tbldocument (filename, filepath, user_id) VALUES (:filename, :filepath, :user_id)";
+    $stmt = $conn->prepare($query);
+    $stmt->bindParam(':filename', $filename);
+    $stmt->bindParam(':filepath', $filepath);
+    $stmt->bindParam(':user_id', $userId, PDO::PARAM_INT);
+    $stmt->execute();
+}
+
+// Fonction pour récupérer les documents de l'utilisateur depuis la table "tbldocument"
+function getUserDocuments($userId)
+{
+    global $conn;
+
+    $sql = "SELECT * FROM tbldocument WHERE user_id = :user_id";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

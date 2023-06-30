@@ -17,12 +17,12 @@ if (!empty($_POST)) {
             die("L'utilsateur et/ou le mot de passe est incorrect.");
         }
         session_start();
-        $_SESSION["user"] = [
-            'id' => $user['userId'],
-            'mail' => $user['userMail'],
-            'name' => $user['userName'],
-            'role' => $user['role'],
-        ];
+        // Enregistrer les informations de l'utilisateur dans la session
+        $_SESSION["user"]["userId"] = $user["userId"];
+        $_SESSION["user"]["prenom"] = $user["userSurname"];
+        $_SESSION["user"]["nom"] = $user["userName"];
+        $_SESSION["user"]["role"] = $user["role"];
+
         $role = $user['role'];
         if ($role === 'super_admin') {
             header('Location: ../views/index.php');

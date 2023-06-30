@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 14, 2023 at 09:32 AM
+-- Generation Time: Jun 21, 2023 at 08:29 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `tbluser` (
   `role` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`userId`),
   KEY `classId` (`classId`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbluser`
@@ -184,7 +184,7 @@ INSERT INTO `tbluser` (`userId`, `userMail`, `userPwd`, `userSurname`, `userName
 (14, 'superadmin@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Super', 'Admin', '100', NULL, '1111111111', NULL, '57000', 'Super Admin', 'Super Admin', NULL, 3, 'super_admin'),
 (17, 'admin@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Simple', 'Admin', '90', NULL, '999999999', NULL, '57000', 'Admin', 'Admin', NULL, 3, 'admin'),
 (19, 'user@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'New', 'User', '10', NULL, '222222222', NULL, '57000', 'User', 'User', NULL, 4, 'user'),
-(31, 'admin2@mail.com', '$2y$10$FB8wMQt6MbcRLn/UIZbzB.kZb4XoPsItgLWSNN/jgG3', 'Simple 2', 'Admin 2', '30', NULL, '33333333333', NULL, '57000', 'Ville', 'Voie', NULL, 3, '');
+(36, 'admin2@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Simple 2', 'Admin 2', '30', NULL, '00000000', NULL, '57300', 'Ville', 'Voie', NULL, NULL, 'admin');
 
 -- --------------------------------------------------------
 
