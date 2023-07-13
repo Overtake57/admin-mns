@@ -7,35 +7,46 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/connexion/connect.php";
 require_once "../includes/header.php";
 require_once "../php/function.php";
 
-// Vérifier si la connexion à la base de données est établie avec succès
 if (!$conn) {
     echo "Erreur de connexion à la base de données.";
     exit();
 }
 
-$classes = getClasses($conn);
+if (isset($_GET['view'])) {
+    $view = $_GET['view'];
+} else {
+    $view = 'current';
+}
 
-// Vérifier si la fonction getClasses() a renvoyé un résultat valide
+$classes = [];
+if ($view === 'current') {
+    $classes = getClasses($conn);
+} else if ($view === 'archived') {
+    $classes = getArchivedClasses($conn);
+}
+
 if ($classes === false) {
     echo "Erreur lors de la récupération des classes.";
     exit();
 }
 ?>
-    <div id="container-eleves">
-        <div>
-            <li><button><a href="./ajoutClasse.php"> <i class="fa-solid fa-user-plus"></i></a></button></li>
-        </div>
+<div id="container-eleves">
+    <div>
+        <li><button><a href="./ajoutClasse.php"> <i class="fa-solid fa-user-plus"></i></a></button></li>
+        <a href="?view=current" class="btn btn-primary">Voir les classes actuelles</a>
+        <a href="?view=archived" class="btn btn-secondary">Voir les classes archivées</a>
     </div>
+</div>
 
-    <div id="container-main">
-        <table class="tableau">
-            <tr>
-                <th>Classe</th>
-                <th>Description</th>
-                <th>Nombre d'élèves</th>
-                <th>Action</th>
-            </tr>
-            <?php
+<div id="container-main">
+    <table class="tableau">
+        <tr>
+            <th>Classe</th>
+            <th>Description</th>
+            <th>Nombre d'élèves</th>
+            <th>Action</th>
+        </tr>
+        <?php
 if (count($classes) > 0) {
     $index = 0;
     foreach ($classes as $class) {
@@ -61,11 +72,11 @@ if (count($classes) > 0) {
     echo "<tr><td>Aucune classe trouvée</td></tr>";
 }
 ?>
-        </table>
-    </div>
+    </table>
+</div>
 
 
-    <script src="../../assets/javascript/script.js"></script>
+<script src="../../assets/javascript/script.js"></script>
 </body>
 
 </html>

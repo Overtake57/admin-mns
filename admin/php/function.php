@@ -41,7 +41,7 @@ function checkDuplicatePhone(PDO $conn, string $phone): bool
 }
 
 // Ajout d'un élève
-function addUser(PDO $conn, User $user, string $role,  ? int $className = null) : void
+function addUser(PDO $conn, User $user, string $role, ?int $className = null): void
 {
     $emailExists = checkDuplicateEmail($conn, $user->email);
     $phoneExists = checkDuplicatePhone($conn, $user->phone);
@@ -92,7 +92,7 @@ function addUser(PDO $conn, User $user, string $role,  ? int $className = null) 
 // Récupération des classes
 function getClasses(PDO $conn): array
 {
-    $sql = "SELECT * FROM tblclass";
+    $sql = "SELECT * FROM tblclass WHERE archived = 0";
     $query = $conn->query($sql);
     $classes = $query->fetchAll(PDO::FETCH_ASSOC);
     return $classes;
@@ -323,4 +323,19 @@ function getUserDocuments($userId)
     $stmt->bindParam(":user_id", $userId, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function archiveClass($conn, $classId)
+{
+    $query = $conn->prepare("UPDATE tblclass SET archived = 1 WHERE classId = :classId");
+    $query->bindValue(':classId', $classId, PDO::PARAM_INT);
+
+    return $query->execute();
+}
+function getArchivedClasses(PDO $conn): array
+{
+    $sql = "SELECT * FROM tblclass WHERE archived = 1";
+    $query = $conn->query($sql);
+    $classes = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $classes;
 }

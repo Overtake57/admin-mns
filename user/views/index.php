@@ -1,4 +1,5 @@
 <?php
+include "../../connexion/connect.php";
 include "../_protect.php";
 $title = "Accueil";
 $link = "../../assets/style/userAccueil.css";
@@ -10,24 +11,47 @@ if (!isset($_SESSION["user"]) || in_array($_SESSION["user"]["role"], $disallowed
     header("Location: ../index.php");
     exit();
 }
-?>
 
+$userId = $_SESSION['user']['userId'];
+
+// Récupération des informations de l'utilisateur et de la classe depuis la table "tblUser" et "tblClasses"
+$userQuery = "SELECT tbluser.userName, tbluser.userSurname, tblclass.className FROM tbluser INNER JOIN tblclass ON tbluser.classId = tblclass.classId WHERE tbluser.userId = '$userId'";
+$userResult = $conn->query($userQuery);
+
+if ($userResult && $userInfo = $userResult->fetch(PDO::FETCH_ASSOC)) {
+    $nom = $userInfo['userName'];
+    $prenom = $userInfo['userSurname'];
+    $className = $userInfo['className'];
+} else {
+    echo "Erreur lors de la récupération des informations de l'utilisateur.";
+    exit(); // Arrête l'exécution du script en cas d'erreur
+}
+?>
 
 <div id="container-main">
     <div id="container-1">
         <img src="../../assets/img/golem.png" alt="">
-            <div>
-              <li>Nom</li>
-              <li>prénom</li>
-              <li>classe</li>
-            </div>
+        <div>
+            <li><?php echo htmlspecialchars($nom); ?></li>
+            <li><?php echo htmlspecialchars($prenom); ?></li>
+            <li><?php echo htmlspecialchars($className); ?></li>
+        </div>
     </div>
 
     <div id="container-2">
     <div>
         <table class="tableau">
             <h2>Mes absences</h2>
-            <h3>Nombre d'absences actuel :</h3>
+            <?php
+$userId = $_SESSION['user']['userId'];
+
+// Récupération des absences de l'utilisateur depuis la table "tblabsent"
+$query = "SELECT * FROM tblabsent WHERE userId = '$userId'";
+$result = $conn->query($query);
+$absenceCount = $result ? $result->rowCount() : 0;
+?>
+            <h3>Nombre d'absences actuel : <?php echo $absenceCount; ?></h3>
+            <a href="submitAbsence.php" class="submit-absence-btn">Soumettre une absence</a>
             <tr>
                 <th>Date</th>
                 <th>Motif</th>
@@ -38,10 +62,10 @@ $userId = $_SESSION['user']['userId'];
 
 // Récupération des absences de l'utilisateur depuis la table "tblabsent"
 $query = "SELECT * FROM tblabsent WHERE userId = '$userId'";
-$result = mysqli_query($conn, $query);
+$result = $conn->query($query);
 
 if ($result) {
-    while ($row = mysqli_fetch_assoc($result)) {
+    while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
         echo "<tr>";
         echo "<td>" . $row["date"] . "</td>";
         echo "<td>" . $row["motif"] . "</td>";
@@ -51,47 +75,11 @@ if ($result) {
 } else {
     echo "<tr><td colspan='3'>Aucune absence trouvée</td></tr>";
 }
+
 ?>
         </table>
     </div>
 </div>
-
-
-      <div id="margin">
-        <table class="tableau">
-            <h2>Mes retards</h2>
-            <h3>Nombre de retard actuel :</h3>
-          <tr>
-            <th>Date</th>
-            <th>Motif</th>
-            <th>justifier ?</th>
-          </tr>
-          <tr>
-            <td>21/02/2023</td>
-            <td>rendez vous dentistes</td>
-            <td>oui</td>
-          </tr>
-          <tr>
-            <td>21/02/2023</td>
-            <td>rendez vous dentistes</td>
-            <td>oui</td>
-          </tr>
-          <tr>
-            <td>21/02/2023</td>
-            <td>rendez vous dentistes</td>
-            <td>oui</td>
-          </tr>
-          <tr>
-            <td>21/02/2023</td>
-            <td>rendez vous dentistes</td>
-            <td>oui</td>
-          </tr>
-        </table>
-      </div>
-    </div>
-</div>
-
-
   </body>
 
   <script>
