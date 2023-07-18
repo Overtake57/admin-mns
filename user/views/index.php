@@ -15,28 +15,34 @@ if (!isset($_SESSION["user"]) || in_array($_SESSION["user"]["role"], $disallowed
 $userId = $_SESSION['user']['userId'];
 
 // Récupération des informations de l'utilisateur et de la classe depuis la table "tblUser" et "tblClasses"
-$userQuery = "SELECT tbluser.userName, tbluser.userSurname, tblclass.className FROM tbluser INNER JOIN tblclass ON tbluser.classId = tblclass.classId WHERE tbluser.userId = '$userId'";
-$userResult = $conn->query($userQuery);
+$userQuery = "SELECT tbluser.userName, tbluser.userSurname, tbluser.userImage, tblclass.className FROM tbluser INNER JOIN tblclass ON tbluser.classId = tblclass.classId WHERE tbluser.userId = :userId";
 
-if ($userResult && $userInfo = $userResult->fetch(PDO::FETCH_ASSOC)) {
+$userStmt = $conn->prepare($userQuery);
+$userStmt->bindValue(':userId', $userId);
+$userStmt->execute();
+
+if ($userStmt && $userInfo = $userStmt->fetch(PDO::FETCH_ASSOC)) {
     $nom = $userInfo['userName'];
     $prenom = $userInfo['userSurname'];
     $className = $userInfo['className'];
+    $userImage = $userInfo['userImage'];
 } else {
     echo "Erreur lors de la récupération des informations de l'utilisateur.";
     exit(); // Arrête l'exécution du script en cas d'erreur
 }
+
 ?>
 
 <div id="container-main">
     <div id="container-1">
-        <img src="../../assets/img/golem.png" alt="">
+        <img src="<?php echo $userImage; ?>" alt="Image de l'utilisateur">
         <div>
             <li><?php echo htmlspecialchars($nom); ?></li>
             <li><?php echo htmlspecialchars($prenom); ?></li>
             <li><?php echo htmlspecialchars($className); ?></li>
         </div>
     </div>
+
 
     <div id="container-2">
     <div>

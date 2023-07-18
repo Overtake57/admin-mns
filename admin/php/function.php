@@ -58,7 +58,7 @@ function addUser(PDO $conn, User $user, string $role, ?int $className = null): v
         return;
     }
 
-    $sql = 'INSERT INTO tbluser (userSurname, userName, userAge, userPhone, userMail, userCity, userStreet, userCp, classId, userPwd, role) VALUES (:userSurname, :userName, :userAge, :userPhone, :userMail, :userCity, :userStreet, :userCp, :classId, :userPwd, :role)';
+    $sql = 'INSERT INTO tbluser (userSurname, userName, userAge, userPhone, userMail, userCity, userStreet, userCp, classId, userPwd, role, userImage) VALUES (:userSurname, :userName, :userAge, :userPhone, :userMail, :userCity, :userStreet, :userCp, :classId, :userPwd, :role, :userImage)';
 
     $query = $conn->prepare($sql);
 
@@ -72,6 +72,7 @@ function addUser(PDO $conn, User $user, string $role, ?int $className = null): v
     $query->bindValue(':userCp', $user->cp, PDO::PARAM_STR);
     $query->bindValue(':userPwd', $user->passwordHash, PDO::PARAM_STR);
     $query->bindValue(':role', $role, PDO::PARAM_STR);
+    $query->bindValue(':userImage', $user->userImage, PDO::PARAM_STR);
 
     // Bind the className parameter if it is provided
     if ($className !== null) {
@@ -220,8 +221,8 @@ class User
     public $className;
     public $passwordHash;
     public $role;
-
-    public function __construct($surname, $name, $age, $phone, $email, $city, $street, $cp, $className, $passwordHash)
+    public $userImage;
+    public function __construct($surname, $name, $age, $phone, $email, $city, $street, $cp, $className, $passwordHash, $userImage)
     {
         $this->surname = $surname;
         $this->name = $name;
@@ -233,6 +234,7 @@ class User
         $this->cp = $cp;
         $this->className = $className;
         $this->passwordHash = $passwordHash;
+        $this->userImage = $userImage;
     }
     public function setRole($role)
     {

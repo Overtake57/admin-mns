@@ -11,7 +11,7 @@ require_once "../php/updateUser.php";
     </div>
     <div id="container-main">
         <div id="container-eleve">
-            <form method="post" action="adminModifEleve.php?studentId=<?php echo $studentId; ?>">
+            <form method="post" action="../php/updateUser.php?studentId=<?php echo $studentId; ?>">
                 <div class="form-group">
                     <label for="userSurname">Nom :</label>
                     <input type="text" id="userSurname" name="userSurname" value="<?php echo $student['userSurname']; ?>" required />

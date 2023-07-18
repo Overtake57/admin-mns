@@ -5,68 +5,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         require_once $_SERVER['DOCUMENT_ROOT'] . "/connexion/connect.php";
         require_once "../php/function.php";
 
-        // Nettoyer et valider les valeurs du formulaire
-        $surname = trim($_POST['userSurname']);
-        $name = trim($_POST['userName']);
-        $age = filter_var($_POST['userAge'], FILTER_VALIDATE_INT);
-        $phone = trim($_POST['userPhone']);
-        $email = filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL);
-        $city = trim($_POST['userCity']);
-        $street = trim($_POST['userStreet']);
-        $cp = trim($_POST['userCp']);
-        $className = filter_var($_POST['className'], FILTER_VALIDATE_INT);
+        $data = [
+            'userSurname' => trim($_POST['userSurname']),
+            'userName' => trim($_POST['userName']),
+            'userAge' => filter_var($_POST['userAge'], FILTER_VALIDATE_INT),
+            'userPhone' => trim($_POST['userPhone']),
+            'userMail' => filter_var($_POST['userMail'], FILTER_VALIDATE_EMAIL),
+            'userCity' => trim($_POST['userCity']),
+            'userStreet' => trim($_POST['userStreet']),
+            'userCp' => trim($_POST['userCp']),
+            'className' => filter_var($_POST['className'], FILTER_VALIDATE_INT),
+        ];
 
         // Valider les valeurs du formulaire
-        if (empty($surname) || empty($name) || empty($age) || empty($phone) || empty($email) || empty($city) || empty($street) || empty($cp) || empty($className)) {
-            throw new Exception("Tous les champs doivent être remplis.");
+        foreach ($data as $key => $value) {
+            if (empty($value) || ctype_space($value)) {
+                throw new Exception("$key doit être rempli et ne peut pas contenir seulement des espaces.");
+            }
+        }
+
+        // Validation spécifique de l'âge
+        if ($data['userAge'] < 0 || $data['userAge'] > 130) {
+            throw new Exception("L'âge doit être compris entre 0 et 130.");
         }
 
         // Appliquer htmlspecialchars aux valeurs avant insertion dans la base de données
-        $surname = htmlspecialchars($surname, ENT_QUOTES);
-        $name = htmlspecialchars($name, ENT_QUOTES);
-        $phone = htmlspecialchars($phone, ENT_QUOTES);
-        $email = htmlspecialchars($email, ENT_QUOTES);
-        $city = htmlspecialchars($city, ENT_QUOTES);
-        $street = htmlspecialchars($street, ENT_QUOTES);
-        $cp = htmlspecialchars($cp, ENT_QUOTES);
-
-        // Stocker l'adresse e-mail dans une variable
-        $userMail = $email;
-
-        // Générer un mot de passe aléatoire
-        //? $password = randomPassword();
-
-        $password = "qwerty";
-
-        // Hacher le mot de passe
-        $passwordHash = passwordHash($password);
-
-        // Créer un objet User avec les détails de l'utilisateur
-        $user = new User($surname, $name, $age, $phone, $email, $city, $street, $cp, $className, $passwordHash);
-
-        $loggedInUserRole = 'admin'; // Rôle de l'utilisateur connecté
-
-        // Vérifiez si l'utilisateur connecté est un "admin" ou un "super_admin"
-        if ($loggedInUserRole === 'admin') {
-            // L'utilisateur connecté a le rôle "admin", donc les nouveaux utilisateurs auront le rôle "user"
-            addUser($conn, $user, 'user');
-        } elseif ($loggedInUserRole === 'super_admin') {
-            // L'utilisateur connecté a le rôle "super_admin", donc les nouveaux utilisateurs auront le rôle "admin"
-            addUser($conn, $user, 'admin');
+        foreach ($data as $key => $value) {
+            $data[$key] = htmlspecialchars($value, ENT_QUOTES);
         }
 
-        //? Envoyer l'e-mail contenant le mot de passe généré à l'adresse e-mail de l'utilisateur
-        // $subject = "Nouveau mot de passe";
-        // $message = "Votre mot de passe temporaire est : " . $password;
-        // $headers = "From: your_email@example.com"; // Remplacez par notre adresse e-mail
+        $password = "qwerty";
+        $passwordHash = passwordHash($password);
+        $userImage = '/assets/img/default.png';
 
-        // $mailSent = mail($email, $subject, $message, $headers);
+        $user = new User(
+            $data['userSurname'],
+            $data['userName'],
+            $data['userAge'],
+            $data['userPhone'],
+            $data['userMail'],
+            $data['userCity'],
+            $data['userStreet'],
+            $data['userCp'],
+            $data['className'],
+            $passwordHash,
+            $userImage
+        );
 
-        // if (!$mailSent) {
-        //     throw new Exception("Une erreur s'est produite lors de l'envoi de l'e-mail.");
-        // }
+        $loggedInUserRole = 'admin';
 
-        // Rediriger vers la page principale avec un message de succès
+        if ($loggedInUserRole === 'admin') {
+            addUser($conn, $user, 'user', $data['className']);
+        } elseif ($loggedInUserRole === 'super_admin') {
+            addUser($conn, $user, 'admin', $data['className']);
+        }
+
         $_SESSION['success'] = "L'élève a été ajouté avec succès.";
         header("Location: ../views/index.php");
         exit();
@@ -76,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 } else {
-    // Rediriger vers la page d'ajout d'élève si la méthode de requête n'est pas POST
     header("Location: ../views/ajoutUtilisateur.php");
     exit();
 }

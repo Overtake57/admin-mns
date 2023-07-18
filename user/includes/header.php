@@ -21,7 +21,7 @@
       /></a>
       <div class="nav-links">
         <ul>
-          <li><a href="./index.php">Absence/Retard</a></li>
+          <li><a href="./index.php">Absence</a></li>
           <li><a href="./userDocument.php">document</a></li>
         </ul>
       </div>
