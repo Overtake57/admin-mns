@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 21, 2023 at 08:29 AM
+-- Generation Time: Jul 23, 2023 at 01:04 PM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -59,6 +59,23 @@ CREATE TABLE IF NOT EXISTS `necessite` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tblabsent`
+--
+
+DROP TABLE IF EXISTS `tblabsent`;
+CREATE TABLE IF NOT EXISTS `tblabsent` (
+  `absenceId` int NOT NULL AUTO_INCREMENT,
+  `userId` int NOT NULL,
+  `date` date NOT NULL,
+  `motif` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `justification` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`absenceId`),
+  KEY `userId` (`userId`)
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tblclass`
 --
 
@@ -69,22 +86,23 @@ CREATE TABLE IF NOT EXISTS `tblclass` (
   `classDesc` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `archived` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`classId`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblclass`
 --
 
 INSERT INTO `tblclass` (`classId`, `className`, `classDesc`, `archived`) VALUES
-(3, 'Dev 2666', 'Dev Web et Web Mobile', 0),
+(3, 'Dev 266', 'Dev Web et Web Mobile', 0),
 (4, 'Dev 3', 'Dev Web & Web Mobile', 0),
-(5, 'Dev 4', 'Dev Web et Web Mobile', 0),
+(5, 'Dev 44', 'Dev Web et Web Mobile', 0),
 (6, 'Dev 5', 'Dev Web et Web Mobile', 0),
 (8, 'Dev 23', 'Dev Web et Web Mobile', 0),
 (9, 'test', 'test', 0),
-(10, 'test4', 'test4', 0),
-(11, 'test 12', '43', 0),
-(12, 'dev test', 'testtestetesttesttestetesttesttestetesttesttestete', 0);
+(10, 'test4', 'test4', 1),
+(11, 'test 12', '43', 1),
+(12, 'dev test', 'testtestetesttesttestetesttesttestetesttesttestete', 1),
+(13, 'test final', 'test final', 0);
 
 -- --------------------------------------------------------
 
@@ -94,22 +112,16 @@ INSERT INTO `tblclass` (`classId`, `className`, `classDesc`, `archived`) VALUES
 
 DROP TABLE IF EXISTS `tbldocument`;
 CREATE TABLE IF NOT EXISTS `tbldocument` (
-  `documentId` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `documentDate` date DEFAULT NULL,
-  `documentName` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `documentBool` tinyint(1) DEFAULT NULL,
-  `controlDate` date DEFAULT NULL,
-  `motifRefus` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `declarationId` int DEFAULT NULL,
-  `typeId` int DEFAULT NULL,
-  `userId` int DEFAULT NULL,
-  `userId1` int NOT NULL,
-  PRIMARY KEY (`documentId`),
-  KEY `declarationId` (`declarationId`),
-  KEY `typeId` (`typeId`),
-  KEY `userId` (`userId`),
-  KEY `userId1` (`userId1`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `filename` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `filepath` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `user_id` int DEFAULT NULL,
+  `document_name` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `document_path` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `uploaded_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_user_document` (`user_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -174,17 +186,20 @@ CREATE TABLE IF NOT EXISTS `tbluser` (
   `role` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`userId`),
   KEY `classId` (`classId`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbluser`
 --
 
 INSERT INTO `tbluser` (`userId`, `userMail`, `userPwd`, `userSurname`, `userName`, `userAge`, `userInscription`, `userPhone`, `userImage`, `userCp`, `userCity`, `userStreet`, `userNumero`, `classId`, `role`) VALUES
-(14, 'superadmin@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Super', 'Admin', '100', NULL, '1111111111', NULL, '57000', 'Super Admin', 'Super Admin', NULL, 3, 'super_admin'),
-(17, 'admin@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Simple', 'Admin', '90', NULL, '999999999', NULL, '57000', 'Admin', 'Admin', NULL, 3, 'admin'),
-(19, 'user@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'New', 'User', '10', NULL, '222222222', NULL, '57000', 'User', 'User', NULL, 4, 'user'),
-(36, 'admin2@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Simple 2', 'Admin 2', '30', NULL, '00000000', NULL, '57300', 'Ville', 'Voie', NULL, NULL, 'admin');
+(14, 'superadmin@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Super', 'Admin', '100', NULL, '1111111111', '/assets/img/default.png', '57000', 'Super Admin', 'Super Admin', NULL, 3, 'super_admin'),
+(17, 'admin@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Simple', 'Admin', '90', NULL, '999999999', '/assets/img/default.png', '57000', 'Admin', 'Admin', NULL, 3, 'admin'),
+(19, 'user@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'New', 'User', '10', NULL, '222222222', '/assets/img/default.png', '57000', 'User', 'User', NULL, 4, 'user'),
+(36, 'admin2@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'Simple 2', 'Admin 2', '30', NULL, '00000000', '/assets/img/default.png', '57300', 'Ville', 'Voie', NULL, 4, 'admin'),
+(37, 'test@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'monsieur', 'tate', '30', NULL, '0101010101', '/assets/img/default.png', '5700', 'Metz', 'Voie', NULL, 4, 'user'),
+(38, 'testfinal@mail.com', '$2y$10$BV.ITO6oYMy3wq8oUiZxMuedSJ0t0XQVNUB.vF.zFOi', 'test', 'final', '20', NULL, '02020202020', '/assets/img/default.png', '3000', 'finaltest', 'finaltest', NULL, 13, 'user'),
+(39, 'testtest@mail.com', '$2y$10$blER0BTeTzCaqdiNxnCvzuzdHMajIRkH9ZFic2Ce6Uu', 'test', 'image', '20', NULL, '0202020202', '/assets/img/default.png', '55000', 'image', 'image', NULL, NULL, 'user');
 
 -- --------------------------------------------------------
 
@@ -197,19 +212,6 @@ CREATE TABLE IF NOT EXISTS `type_piece` (
   `typeId` int NOT NULL AUTO_INCREMENT,
   `typePieceLabel` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`typeId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `type_retard_absence`
---
-
-DROP TABLE IF EXISTS `type_retard_absence`;
-CREATE TABLE IF NOT EXISTS `type_retard_absence` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `label` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --

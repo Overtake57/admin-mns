@@ -252,20 +252,24 @@ function getUserByEmail($email, $conn)
 
     return $user;
 }
-function getAdminStudents($conn)
+function getAdminStudents($conn, $searchTerm)
 {
-    $sql = "SELECT u.*, c.className FROM tbluser u JOIN tblclass c ON u.classId = c.classId WHERE u.role = 'admin'";
+    $searchTerm = '%' . $searchTerm . '%';
+    $sql = "SELECT u.*, c.className FROM tbluser u JOIN tblclass c ON u.classId = c.classId WHERE u.role = 'admin' AND (u.userSurname LIKE :search OR u.userName LIKE :search OR c.className LIKE :search)";
     $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':search', $searchTerm);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
 }
 
 // Récupérer les détails d'un utilisateur par son identifiant
-function getUserStudents($conn)
+function getUserStudents($conn, $searchTerm)
 {
-    $sql = "SELECT u.*, c.className FROM tbluser u JOIN tblclass c ON u.classId = c.classId WHERE u.role = 'user'";
+    $searchTerm = '%' . $searchTerm . '%';
+    $sql = "SELECT u.*, c.className FROM tbluser u JOIN tblclass c ON u.classId = c.classId WHERE u.role = 'user' AND (u.userSurname LIKE :search OR u.userName LIKE :search OR c.className LIKE :search)";
     $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':search', $searchTerm);
     $stmt->execute();
     $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
     return $result;
@@ -340,4 +344,77 @@ function getArchivedClasses(PDO $conn): array
     $query = $conn->query($sql);
     $classes = $query->fetchAll(PDO::FETCH_ASSOC);
     return $classes;
+}
+
+// Suppression d'un utilisateur
+function deleteUser(PDO $conn, int $userId): void
+{
+    $sql = "DELETE FROM tbluser WHERE userId = :userId";
+    $query = $conn->prepare($sql);
+    $query->bindValue(':userId', $userId, PDO::PARAM_INT);
+    $query->execute();
+}
+
+// Suppression d'une classe
+function deleteClass(PDO $conn, int $classId): void
+{
+    $sql = "DELETE FROM tblclass WHERE classId = :classId";
+    $query = $conn->prepare($sql);
+    $query->bindValue(':classId', $classId, PDO::PARAM_INT);
+    $query->execute();
+}
+
+// Récupération des utilisateurs archivés
+function getArchivedUsers(PDO $conn): array
+{
+    $sql = "SELECT * FROM tbluser WHERE archived = 1";
+    $query = $conn->query($sql);
+    $users = $query->fetchAll(PDO::FETCH_ASSOC);
+    return $users;
+}
+
+// Récupération d'un utilisateur par son numéro de téléphone
+function getUserByPhone(PDO $conn, string $phone):  ? array
+{
+    $sql = "SELECT * FROM tbluser WHERE userPhone = :phone";
+    $query = $conn->prepare($sql);
+    $query->bindValue(':phone', $phone, PDO::PARAM_STR);
+    $query->execute();
+    $user = $query->fetch(PDO::FETCH_ASSOC);
+    return $user ?: null;
+}
+function getAbsenceCount($studentId)
+{
+    global $conn;
+
+    $sql = "SELECT COUNT(*) AS absence_count FROM tblabsent WHERE userId = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindValue(1, $studentId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    return $row['absence_count'];
+}
+
+function getSentDocuments($studentId)
+{
+    global $conn;
+
+    $sql = "SELECT tbldocument.document_name as name, tbldocument.uploaded_at as date, 'Document' as type
+            FROM tbldocument
+            WHERE user_id = ?
+            UNION ALL
+            SELECT tblabsent.justification as name, tblabsent.date as date, 'Absence' as type
+            FROM tblabsent
+            WHERE userId = ?";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bindValue(1, $studentId, PDO::PARAM_INT);
+    $stmt->bindValue(2, $studentId, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $documents = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    return $documents;
 }
