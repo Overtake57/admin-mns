@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 23, 2023 at 01:04 PM
+-- Generation Time: Aug 15, 2023 at 10:32 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -45,16 +45,28 @@ CREATE TABLE IF NOT EXISTS `declaration` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `necessite`
+-- Table structure for table `tblabsencerequest`
 --
 
-DROP TABLE IF EXISTS `necessite`;
-CREATE TABLE IF NOT EXISTS `necessite` (
-  `typeId` int NOT NULL,
-  `formationId` int NOT NULL,
-  PRIMARY KEY (`typeId`,`formationId`),
-  KEY `formationId` (`formationId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+DROP TABLE IF EXISTS `tblabsencerequest`;
+CREATE TABLE IF NOT EXISTS `tblabsencerequest` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `userId` int DEFAULT NULL,
+  `adminId` int DEFAULT NULL,
+  `requestedAt` datetime DEFAULT NULL,
+  `status` enum('requested','justified','unjustified') COLLATE utf8mb4_general_ci DEFAULT 'requested',
+  `justificationDocument` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userId` (`userId`),
+  KEY `adminId` (`adminId`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblabsencerequest`
+--
+
+INSERT INTO `tblabsencerequest` (`id`, `userId`, `adminId`, `requestedAt`, `status`, `justificationDocument`) VALUES
+(1, 19, 17, '2023-07-24 16:09:42', 'requested', NULL);
 
 -- --------------------------------------------------------
 
@@ -71,7 +83,14 @@ CREATE TABLE IF NOT EXISTS `tblabsent` (
   `justification` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`absenceId`),
   KEY `userId` (`userId`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tblabsent`
+--
+
+INSERT INTO `tblabsent` (`absenceId`, `userId`, `date`, `motif`, `justification`) VALUES
+(4, 19, '2023-07-23', 'test', 0);
 
 -- --------------------------------------------------------
 
@@ -121,7 +140,14 @@ CREATE TABLE IF NOT EXISTS `tbldocument` (
   `uploaded_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_user_document` (`user_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbldocument`
+--
+
+INSERT INTO `tbldocument` (`id`, `filename`, `filepath`, `user_id`, `document_name`, `document_path`, `uploaded_at`) VALUES
+(24, '19_64bd26fa41632.pdf', 'C:/Users/stagiaire/Documents/projects/www/redFilePhp/admin/uploads/New_User/19_64bd26fa41632.pdf', 19, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 

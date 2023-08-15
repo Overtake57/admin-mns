@@ -14,11 +14,25 @@ $absencesCount = getAbsenceCount($studentId);
 
 // Récupérer la liste des documents envoyés par l'élève
 $sentDocuments = getSentDocuments($studentId);
+
+// Vérifier si le bouton "Élève absent" a été cliqué
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    if (isset($_POST['absent'])) {
+        // Récupérer l'identifiant de l'administrateur connecté
+        $adminId = $_SESSION['user']['userId'];
+
+        // Ajouter une demande d'absence pour l'élève
+        addAbsenceRequest($studentId, $adminId);
+
+        echo "Demande d'absence ajoutée avec succès.";
+    }
+}
 ?>
 <div class="container-main">
   <div class="container-sd">
-    <!-- Remplacé par un bouton "Élève absent" -->
-    <button>Élève absent</button>
+    <form method="POST">
+        <button name="absent">Élève absent</button>
+    </form>
   </div>
   <div class="container-sd">
     <h3>Nombre d'absences : <?=htmlspecialchars($absencesCount)?></h3>

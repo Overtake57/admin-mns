@@ -105,41 +105,29 @@ foreach ($documents as $document) {
     echo "<td>" . $document["filepath"] . "</td>";
     echo "</tr>";
 }
+echo '
+    <div id="margin">
+        <table class="tableau">
+            <h2>Absence à fournir :</h2>
+            <tr>
+                <th>Date</th>
+                <th>Document</th>
+                <th>Type</th>
+            </tr>';
+
+// Requête pour récupérer les documents demandés par l'administrateur
+$requestedDocuments = getRequestedDocuments($userId);
+
+foreach ($requestedDocuments as $document) {
+    echo "<tr>";
+    echo "<td>" . htmlspecialchars($document["requestedAt"]) . "</td>";
+    echo "<td>" . htmlspecialchars($document["justificationDocument"]) . "</td>";
+    echo "<td>" . htmlspecialchars($document["status"]) . "</td>";
+    echo "</tr>";
+}
 
 echo '
-            </table>
-        </div>
-
-        <div id="margin">
-            <table class="tableau">
-                <h2>Documents à fournir :</h2>
-                <tr>
-                    <th>Date</th>
-                    <th>Document</th>
-                    <th>Type</th>
-                </tr>
-                <tr>
-                    <td>21/02/2023</td>
-                    <td>Curriculum vitae</td>
-                    <td>PDF</td>
-                </tr>
-                <tr>
-                    <td>21/02/2023</td>
-                    <td>Curriculum vitae</td>
-                    <td>PDF</td>
-                </tr>
-                <tr>
-                    <td>21/02/2023</td>
-                    <td>Curriculum vitae</td>
-                    <td>PDF</td>
-                </tr>
-                <tr>
-                    <td>21/02/2023</td>
-                    <td>Curriculum vitae</td>
-                    <td>PDF</td>
-                </tr>
-            </table>
-        </div>
+        </table>
     </div>
 </div>';
 

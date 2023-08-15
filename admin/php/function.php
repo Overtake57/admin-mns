@@ -418,3 +418,32 @@ function getSentDocuments($studentId)
 
     return $documents;
 }
+
+function addAbsenceRequest($studentId, $adminId)
+{
+    global $conn;
+    $stmt = $conn->prepare("INSERT INTO tblAbsenceRequest (userId, adminId, requestedAt) VALUES (?, ?, NOW())");
+    $stmt->execute(array($studentId, $adminId));
+}
+
+function getUnjustifiedAbsenceRequests($userId)
+{
+    global $conn;
+    $stmt = $conn->prepare("SELECT * FROM tblAbsenceRequest WHERE userId = ? AND status = 'requested'");
+    $stmt->execute(array($userId));
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+function justifyAbsenceRequest($userId, $documentPath)
+{
+    global $conn;
+    $stmt = $conn->prepare("UPDATE tblAbsenceRequest SET status = 'justified', justificationDocument = ? WHERE userId = ? AND status = 'requested' LIMIT 1");
+    $stmt->execute(array($documentPath, $userId));
+}
+
+function getRequestedDocuments($userId)
+{
+    global $conn;
+    $stmt = $conn->prepare("SELECT * FROM tblAbsenceRequest WHERE userId = ? AND status = 'requested'");
+    $stmt->execute(array($userId));
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
