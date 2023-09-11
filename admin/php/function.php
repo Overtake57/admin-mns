@@ -5,12 +5,9 @@ require_once "../../connexion/connect.php";
 function addClass(PDO $conn, string $className, string $classDesc): void
 {
     $sql = 'INSERT INTO tblclass (className, classDesc) VALUES (:className, :classDesc)';
-
     $query = $conn->prepare($sql);
-
     $query->bindValue(':className', $className, PDO::PARAM_STR);
     $query->bindValue(':classDesc', $classDesc, PDO::PARAM_STR);
-
     $query->execute();
 }
 
@@ -111,7 +108,7 @@ function getStudents(PDO $conn): array
 }
 
 // Récupération d'un élève par son ID
-function getStudentById(PDO $conn, int $studentId):  ? array
+function getStudentById(PDO $conn, int $studentId): ?array
 {
     $sql = "SELECT * FROM tbluser WHERE userId = :studentId";
     $query = $conn->prepare($sql);
@@ -152,7 +149,7 @@ function updateStudentDetails(PDO $conn, int $studentId, string $surname, string
 }
 
 // Récupérer les détails d'une classe par son identifiant
-function getClassById(PDO $conn, int $classId):  ? array
+function getClassById(PDO $conn, int $classId): ?array
 {
     $query = "SELECT * FROM tblclass WHERE classId = :classId";
     $stmt = $conn->prepare($query);
@@ -174,25 +171,6 @@ function updateClass(PDO $conn, int $classId, string $className, string $classDe
     $stmt->bindParam(':classDesc', $classDesc, PDO::PARAM_STR);
     $stmt->execute();
 }
-
-//TODO Archiver une classe dans la base de données
-// function archiveClass(PDO $conn, int $classId): void
-// {
-//     $query = "UPDATE tblclass SET isArchived = 1 WHERE classId = :classId";
-//     $stmt = $conn->prepare($query);
-//     $stmt->bindParam(':classId', $classId, PDO::PARAM_INT);
-//     $stmt->execute();
-// }
-
-//TODO Restaurer une classe archivée dans la base de données
-// function restoreClass(PDO $conn, int $classId): void
-// {
-//     $query = "UPDATE tblclass SET isArchived = 0 WHERE classId = :classId";
-//     $stmt = $conn->prepare($query);
-//     $stmt->bindParam(':classId', $classId, PDO::PARAM_INT);
-//     $stmt->execute();
-// }
-
 function randomPassword($length = 10)
 {
     $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -374,7 +352,7 @@ function getArchivedUsers(PDO $conn): array
 }
 
 // Récupération d'un utilisateur par son numéro de téléphone
-function getUserByPhone(PDO $conn, string $phone):  ? array
+function getUserByPhone(PDO $conn, string $phone): ?array
 {
     $sql = "SELECT * FROM tbluser WHERE userPhone = :phone";
     $query = $conn->prepare($sql);
