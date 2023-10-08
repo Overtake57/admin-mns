@@ -32,7 +32,7 @@ if ($classes === false) {
 ?>
 <div id="container-eleves">
     <div>
-        <li><button><a href="./ajoutClasse.php"> <i class="fa-solid fa-user-plus"></i></a></button></li>
+        <li><a href="./ajoutClasse.php"> <i class="fa-solid fa-user-plus"></i></a></li>
         <a href="?view=current" class="btn btn-primary">Voir les classes actuelles</a>
         <a href="?view=archived" class="btn btn-secondary">Voir les classes archivées</a>
     </div>

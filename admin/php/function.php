@@ -55,7 +55,11 @@ function addUser(PDO $conn, User $user, string $role, ?int $className = null): v
         return;
     }
 
-    $sql = 'INSERT INTO tbluser (userSurname, userName, userAge, userPhone, userMail, userCity, userStreet, userCp, classId, userPwd, role, userImage) VALUES (:userSurname, :userName, :userAge, :userPhone, :userMail, :userCity, :userStreet, :userCp, :classId, :userPwd, :role, :userImage)';
+    $sql = 'INSERT INTO tbluser (userSurname, userName, userAge,
+    userPhone, userMail, userCity, userStreet, userCp, classId,
+    userPwd, role, userImage) VALUES (:userSurname, :userName, :userAge,
+    :userPhone, :userMail, :userCity, :userStreet, :userCp, :classId, :userPwd, :role,
+    :userImage)';
 
     $query = $conn->prepare($sql);
 
@@ -71,7 +75,6 @@ function addUser(PDO $conn, User $user, string $role, ?int $className = null): v
     $query->bindValue(':role', $role, PDO::PARAM_STR);
     $query->bindValue(':userImage', $user->userImage, PDO::PARAM_STR);
 
-    // Bind the className parameter if it is provided
     if ($className !== null) {
         $query->bindValue(':classId', $className, PDO::PARAM_INT);
     } else {
@@ -83,7 +86,8 @@ function addUser(PDO $conn, User $user, string $role, ?int $className = null): v
     if (createUserFolder($user->surname, $user->name)) {
         echo "Dossier créé pour l'utilisateur : " . $user->surname . ' ' . $user->name;
     } else {
-        echo "Échec de la création du dossier pour l'utilisateur : " . $user->surname . ' ' . $user->name;
+        echo "Échec de la création du dossier pour l'utilisateur : " . $user->surname
+        . ' ' . $user->name;
     }
 }
 

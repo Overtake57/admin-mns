@@ -20,7 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Valider les valeurs du formulaire
         foreach ($data as $key => $value) {
             if (empty($value) || ctype_space($value)) {
-                throw new Exception("$key doit être rempli et ne peut pas contenir seulement des espaces.");
+                throw new Exception("$key
+                doit être rempli et ne peut pas contenir seulement des espaces.");
             }
         }
 
@@ -33,6 +34,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($data as $key => $value) {
             $data[$key] = htmlspecialchars($value, ENT_QUOTES);
         }
+
+        //! Génération d'un mot de passe aléatoire
+//! $passwordRandom = bin2hex(random_bytes(5)); // Génère un mot de passe aléatoire de 10 caractères
+//! $password = $passwordRandom;
+//! $passwordHash = passwordHash($password);
 
         $password = "qwerty";
         $passwordHash = passwordHash($password);

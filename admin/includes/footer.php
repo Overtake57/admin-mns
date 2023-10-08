@@ -1,5 +1,5 @@
 <footer>
 
-<!-- ptet  -->
+
 
 </footer>

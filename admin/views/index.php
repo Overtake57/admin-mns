@@ -18,29 +18,45 @@ if ($role === "super_admin") {
 }
 ?>
 
-<div id="container-eleves">
+<main>
+<section id="container-eleves">
+
     <div>
-        <li><button><a href="./ajoutUtilisateur.php"> <i class="fa-solid fa-user-plus"></i></a></button></li>
+        <ul>
+            <li>
+                <button>
+                    <a href="./ajoutUtilisateur.php">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </a>
+                </button>
+            </li>
+        </ul>
     </div>
+
+
     <div>
         <form action="./index.php" method="get">
             <input type="text" name="searchTerm" placeholder="Rechercher un élève">
             <button type="submit">Rechercher</button>
         </form>
     </div>
-</div>
+</section>
 
-<div id="container-main">
+
+<section id="container-main">
     <div id="main-tab">
         <table class="tableau">
-            <tr>
-                <th>Photo</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Classe</th>
-                <th>Outils</th>
-            </tr>
-            <?php
+            <thead>
+                <tr>
+                    <th>Photo</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Classe</th>
+                    <th>Outils</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
 $index = 0;
 if (!empty($students)) {
     foreach ($students as $row) {
@@ -59,9 +75,12 @@ if (!empty($students)) {
     echo "<tr><td colspan='5'>Aucun élève trouvé</td></tr>";
 }
 ?>
+            </tbody>
         </table>
     </div>
-</div>
+</section>
+</main>
+
 
 <script src="../../assets/javascript/script.js"></script>
 </body>

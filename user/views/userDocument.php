@@ -92,7 +92,6 @@ echo '
                 <tr>
                     <th>Date</th>
                     <th>Nom</th>
-                    <th>Chemin</th>
                 </tr>';
 
 // Requête pour récupérer les documents de l'utilisateur
@@ -102,7 +101,6 @@ foreach ($documents as $document) {
     echo "<tr>";
     echo "<td>" . $document["uploaded_at"] . "</td>";
     echo "<td>" . $document["filename"] . "</td>";
-    echo "<td>" . $document["filepath"] . "</td>";
     echo "</tr>";
 }
 echo '

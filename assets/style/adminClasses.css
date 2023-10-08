@@ -1,13 +1,14 @@
-/*/ //////////////////////////////////////// BODY /////////////////////////////////////////////*/
+/* /////////////////////////// BODY ///////////////////////////// */
 div > li {
-  font-size: 12px;
+  list-style-type: none; 
+  margin-bottom: 1rem;  
 }
 
 .autre-button {
   height: 20px;
 }
 
-.tableau tr .tableau {
+.tableau {
   width: 80%;
   border-collapse: collapse;
 }
@@ -33,32 +34,14 @@ div > li {
   display: flex;
 }
 
+div#container-eleves {
+  margin-bottom: 50px; 
+}
+
 #addClasse {
   position: absolute;
   top: 12%;
   right: 7%;
-}
-
-.tableau tr .tableau {
-  width: 80%;
-  border-collapse: collapse;
-}
-
-.tableau th {
-  background-color: #c8c4c4;
-  padding: 8px;
-}
-
-.tableau td {
-  padding: 8px;
-}
-
-.tableau tr:nth-child(even) td {
-  background-color: #f2f2f2;
-}
-
-.tableau tr:nth-child(odd) td {
-  background-color: #e6e6e6;
 }
 
 th {
@@ -71,16 +54,16 @@ tr td {
 
 @media screen and (min-width: 768px) and (max-width: 1000px) {
   #container-main {
-    flex-direction: row;
+      flex-direction: row;
   }
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
   #container-main {
-    flex-direction: column;
+      flex-direction: column;
   }
   #logo {
-    display: none;
+      display: none;
   }
 }
 
@@ -112,7 +95,6 @@ tr td {
   font-size: 16px;
 }
 
-
 .button {
   display: inline-block;
   padding: 10px 20px;
@@ -130,4 +112,43 @@ tr td {
   background-color: #a8a4a4;
 }
 
+div > li a,
+div > a.btn {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  color: #FFF;
+  text-decoration: none;
+  margin-right: 1rem;  
+}
 
+div > li a {
+  background-color: #007BFF; 
+  transition: background-color 0.3s ease;
+}
+
+div > li a:hover {
+  background-color: #0056b3; 
+}
+
+div > a.btn-primary {
+  background-color: #007BFF;
+  transition: background-color 0.3s ease;
+}
+
+div > a.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+div > a.btn-secondary {
+  background-color: #6c757d;
+  transition: background-color 0.3s ease;
+}
+
+div > a.btn-secondary:hover {
+  background-color: #545b62;
+}
+
+div > li a i {
+  vertical-align: middle; 
+}

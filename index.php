@@ -10,32 +10,27 @@
 </head>
 
 <body>
-    <div id="container">
-        <div id="containerInt">
-            <img id="logo" src="./assets/img/ad'mns.png" alt="Logo mns admin" />
+    <main id="container">
+        <section id="containerInt">
+            <header>
+                <img id="logo" src="./assets/img/ad'mns.png" alt="Logo mns admin" />
+            </header>
             <form action="admin/php/login.php" method="POST">
                 <div class="marge">
-                    <div>
-                        <label for="userMail" class="space">Adresse mail </label>
-                    </div>
-                    <input type="email" autocomplete="email" class="input" name="userMail" id="userMail" required />
+                    <label for="userMail" class="space">Adresse mail </label>
+                    <input type="email" autocomplete="email" class="input" name="userMail"
+                    id="userMail" required />
                 </div>
                 <div class="marge">
-                    <div>
-                        <label for="userPwd" class="space">Mot de passe </label>
-                    </div>
+                    <label for="userPwd" class="space">Mot de passe </label>
                     <input type="password" class="input" name="userPwd" id="userPwd" required />
                 </div>
-                <div class="">
-                    <span>
-                        <input type="submit" id="button" class="marginBot" value="Se connecter" />
-                    </span>
+                <div>
+                    <input type="submit" id="button" class="marginBot" value="Se connecter" />
                 </div>
             </form>
-        </div>
-        <? // form page ?>
-        <a href="#" id="mdpoublié">Mot de passe oublié ?</a>
-    </div>
+        </section>
+    </main>
 </body>
 
 </html>

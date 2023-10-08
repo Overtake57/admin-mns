@@ -65,29 +65,21 @@ a {
 }
 
 button[type="submit"] {
-  padding: 10px 20px;
+  display: flex;           
+  align-items: center;      
+  justify-content: center;  
+  padding: 10px 25px;       
   background-color: #ffffff;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  color: #000000;           
+  border: none;             
+  border-radius: 5px;      
+  cursor: pointer;         
+  font-size: 16px;          
+  transition: all 0.3s ease-in-out;  
+  text-align: center;       
+  min-width: 100px;         
 }
 
 button[type="submit"]:hover {
-  background-color: #ffffff;
-}
-
-.center-button {
-  width: 50%;
-  margin: auto;
-  text-align: center;
-}
-
-#button {
-  color: black;
-  height: 25px;
-  width: 100px;
-  font-size: 16px;
-  padding: 5px;
+  background-color: #f7f7f7; 
 }
